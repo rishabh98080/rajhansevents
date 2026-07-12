@@ -36,17 +36,18 @@
 }
 
 .section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-family: var(--font-cinzel);
   color: var(--primary-maroon);
-  margin-bottom: 0.5rem;
 }
 
 .section-subtitle {
+  font-family: var(--font-cinzel);
   color: var(--secondary-gold);
-  font-size: 1.2rem;
-  font-style: italic;
-  font-weight: 600;
+}
+
+.about-stats h3 {
+  font-family: var(--font-cinzel);
+  color: var(--primary-maroon);
 }
 
 .text-light {

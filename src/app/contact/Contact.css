@@ -1,56 +1,79 @@
 .contact-page {
-  background-color: #FFFFF0; /* Ivory */
+  background-color: var(--bg-ivory);
   padding: 80px 10%;
-  color: #2c2c2c; /* Withered Grey/Black */
+  color: var(--text-dark);
 }
 
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+  gap: 60px;
+  align-items: start;
 }
 
 .sub-text {
-  font-family: serif;
+  font-family: var(--font-cinzel);
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #800000; /* Maroon */
+  color: var(--primary-maroon);
   margin-bottom: 30px;
+  font-weight: 700;
 }
 
+/* Form Styling */
 .luxury-form input, .luxury-form textarea {
   display: block;
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px solid #D4AF37; /* Gold */
+  border-bottom: 1px solid var(--secondary-gold);
   padding: 15px 0;
   margin-bottom: 20px;
-  color: #2c2c2c;
+  color: var(--text-dark);
+  font-family: var(--font-base);
 }
 
 .luxury-form button {
-  background: #800000; /* Maroon */
-  color: #D4AF37; /* Gold text */
+  background: var(--primary-maroon);
+  color: var(--secondary-gold);
   padding: 15px 40px;
-  border: 1px solid #D4AF37;
+  border: 1px solid var(--secondary-gold);
   cursor: pointer;
   transition: 0.4s;
+  font-family: var(--font-cinzel);
+  text-transform: uppercase;
 }
 
-/* Right side visuals */
+/* Map Styling */
+.location-data {
+  margin-top: 40px;
+  border-top: 2px solid var(--secondary-gold);
+  padding-top: 20px;
+}
+
+.location-data p {
+  font-family: var(--font-cinzel);
+  margin-bottom: 15px;
+  color: var(--primary-maroon);
+}
+
+.map-container {
+  border: 4px solid var(--secondary-gold);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Visuals */
 .image-stack {
   position: relative;
-  height: 500px;
-  background: #800000; /* Maroon base */
+  height: 600px;
+  border: 2px solid var(--secondary-gold);
 }
 
 .main-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: sepia(20%); /* Adds the 'withered' premium feel */
 }
 
 .gold-accent-box {
@@ -59,12 +82,5 @@
   right: -20px;
   width: 100px;
   height: 100px;
-  border: 5px solid #D4AF37; /* Gold */
-}
-
-.caption {
-  margin-top: 30px;
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #555;
+  border: 5px solid var(--secondary-gold);
 }

@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <div className="contact-page">
       <div className="contact-grid">
-        {/* Left Side: Data & Form */}
+        {/* Left Side: Data, Form & Map */}
         <div className="contact-data">
           <p className="sub-text">Inquiries & Consultations</p>
           <form className="luxury-form">
@@ -16,26 +16,25 @@ export default function Contact() {
           </form>
 
           <div className="location-data">
-            <p>Ranchi, Jharkhand, India</p>
-            {/* Embedded Google Map */}
+            <p>Our Studio: Ranchi, Jharkhand, India</p>
+            <div className="map-container">
                 <iframe
                 width="100%"
-                height="450"
-                style={{ border: 0 }}
+                height="300"
                 loading="lazy"
                 allowFullScreen
                 src={`https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=Ranchi,Jharkhand`}
                 ></iframe>
+            </div>
           </div>
         </div>
 
         {/* Right Side: Visuals */}
         <div className="contact-visuals">
           <div className="image-stack">
-            <img src="/RJA_0797.JPG.jpeg" alt="Wedding Ceremony" className="main-img" />
+            <img src="/RJA_0797.JPG.jpeg" alt="Event Ceremony" className="main-img" />
             <div className="gold-accent-box"></div>
           </div>
-          <p className="caption">Capturing the essence of your sacred ceremony in timeless gold and maroon luxury.</p>
         </div>
       </div>
     </div>

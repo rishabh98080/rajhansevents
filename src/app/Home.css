@@ -1,13 +1,15 @@
 /* --- Base Styles & Color Palette --- */
 :root {
-  --primary-maroon: #580b19;
-  --secondary-gold: #c0832a;
-  --bg-ivory: #fcf8f3;
-  --bg-light: #fcf8f3; 
-  --text-main: #4A0404;
-  --text-muted: #993333;
-  --whatsapp-green: #25d366;
-  --whatsapp-hover: #1da851;
+  /* Core Palette */
+  --primary-maroon: #800000;
+  --secondary-gold: #D4AF37;
+  --bg-ivory: #FFFFF0;
+  --accent-gold: #C5A000; /* Complementary dark gold */
+  --text-dark: #2F0000; /* Deep maroon-black */
+  
+  /* Typography */
+  --font-base: 'Inter', sans-serif;
+  --font-heading: 'Cinzel', serif;
 }
 
 * {
@@ -306,4 +308,56 @@ body {
     grid-template-columns: 1fr; /* Forces 1 column on iPhone */
     gap: 2rem;
   }
+}
+/* --- Structure & Theme --- */
+body {
+  background-color: var(--bg-ivory);
+  color: var(--text-dark);
+  font-family: var(--font-base);
+}
+
+.section-title, h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--primary-maroon);
+  letter-spacing: 0.05em;
+}
+
+/* --- Hero Section --- */
+.hero-content h1 {
+  font-family: var(--font-heading);
+  color: var(--secondary-gold);
+}
+
+/* --- Cards & Accents --- */
+.card-kicker {
+  display: block;
+  font-family: var(--font-base); /* Removed cursive */
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--secondary-gold);
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-title {
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+}
+
+/* --- Stats & Testimonials --- */
+.stat-item h3 {
+  font-family: var(--font-heading);
+  color: var(--secondary-gold);
+}
+
+.testimonial-author {
+  font-family: var(--font-heading);
+  color: var(--primary-maroon);
+}
+
+/* --- Interactive States --- */
+.image-card:hover {
+  border-color: var(--secondary-gold);
 }

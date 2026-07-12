@@ -1,21 +1,23 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "@/component/Navbar"; // Ensure this path matches your folder
-import Footer from "@/component/Footer";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+import { Inter, Cinzel, Pinyon_Script } from 'next/font/google';
+import Navbar from '@/component/Navbar';
+import Footer from '@/component/Footer';
+// Define the fonts
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const cinzel = Cinzel({ 
+  subsets: ['latin'],
+  variable: '--font-cinzel',
 });
 
+const pinyon = Pinyon_Script({ 
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-pinyon',
+});
 
-
-// Metadata is handled here for SEO[cite: 16]
 export const metadata = {
   title: "Raj Hansh Event | Premium Event Planning",
   description: "Professional wedding, birthday, and corporate event planning in Ranchi.",
@@ -23,7 +25,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${cinzel.variable} ${pinyon.variable}`}>
       <body>
         <Navbar />
         <main>{children}</main> {/* Ensures content is wrapped correctly */}

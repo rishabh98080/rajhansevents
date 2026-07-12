@@ -28,7 +28,8 @@ export default function Home() {
         <video autoPlay loop muted playsInline className="hero-video">
           <source src='/hero.mp4' type="video/mp4" />
         </video>
-        <div className="hero-content">
+        <div className="hero-content" style = {{textAlign : 'center'}}>
+          <p><img src = '/logo.jpeg' alt = 'logo' width = "100px" height = "100px"/></p>
           <h1>Raj Hansh Event</h1>
           <p>Turning milestones into unforgettable memories since 2016.</p>
           <div>
