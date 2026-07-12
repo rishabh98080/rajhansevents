@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import './Home.css'; 
-import image from '../../public/monalisa.jpg'
+
 
 export const metadata = {
   title: "Raj Hansh Event | Top Event Planning & Management Services",
@@ -9,15 +9,15 @@ export const metadata = {
 };
 export default function Home() {
   const services = [
-    { title: 'Wedding Planning', kicker: 'Explore Our Services', img: image },
-    { title: 'Birthday & Anniversary', kicker: 'Explore Our Services', img: image },
-    { title: 'Corporate Events', kicker: 'Explore Our Services', img: image }
+    { title: 'Wedding Planning', kicker: 'Explore Our Services', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" },
+    { title: 'Birthday & Anniversary', kicker: 'Explore Our Services', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" },
+    { title: 'Corporate Events', kicker: 'Explore Our Services', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" }
   ];
 
   const featuredEvents = [
-    { title: 'Royal Wedding 1', kicker: 'Ranchi, Jharkhand', img: image },
-    { title: 'Royal Wedding 2', kicker: 'Ranchi, Jharkhand', img: image },
-    { title: 'Royal Wedding 3', kicker: 'Ranchi, Jharkhand', img: image }
+    { title: 'Royal Wedding 1', kicker: 'Ranchi, Jharkhand', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" },
+    { title: 'Royal Wedding 2', kicker: 'Ranchi, Jharkhand', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" },
+    { title: 'Royal Wedding 3', kicker: 'Ranchi, Jharkhand', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" }
   ];
 
   return (
@@ -26,7 +26,7 @@ export default function Home() {
       <section className="hero">
         <div className="hero-overlay"></div>
         <video autoPlay loop muted playsInline className="hero-video">
-          <source src='https://www.youtube.com/watch?v=tCDvOQI3pco' type="video/mp4" />
+          <source src='/hero.mp4' type="video/mp4" />
         </video>
         <div className="hero-content">
           <h1>Raj Hansh Event</h1>
