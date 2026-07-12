@@ -1,6 +1,5 @@
-import React from 'react';
+"use client";
 import './Footer.css';
-import logo from './assets/logo.jpeg';
 const Footer = () => {
   return (
     <footer className="site-footer">
@@ -9,7 +8,7 @@ const Footer = () => {
         {/* Column 1: Brand & Socials */}
         <div className="footer-column brand-column">
           <div className="footer-logo">
-            <img src = {logo} width = "200px" height = "200px"></img> {/* Placeholder for the golden bird logo */}
+            <img src = '/logo.jpeg' width = "200px" height = "200px"></img> {/* Placeholder for the golden bird logo */}
           </div>
           <p className="brand-tagline">
             We create extraordinary experiences<br />

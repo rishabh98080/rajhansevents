@@ -21,6 +21,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   max-width: 1400px;
+  margin-top: 20px;
   margin: 0 auto;
   gap: 2rem;
   padding-bottom: 3rem;

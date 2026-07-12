@@ -1,0 +1,218 @@
+/* ========================================= */
+/* --- COLOR PALETTE (Maroon, Ivory, Gold) --- */
+/* ========================================= */
+:root {
+  --primary-maroon: #800000;
+  --secondary-gold: #D4AF37;
+  --bg-ivory: #FFFFF0;
+  --bg-light-ivory: #FDF5E6;
+  --text-dark: #4A0404;
+  --text-muted: #993333;
+}
+
+.testimonials-page {
+  background-color: var(--bg-ivory);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text-dark);
+}
+
+.testimonials-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+/* --- Headers --- */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--primary-maroon);
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: var(--secondary-gold);
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.text-light {
+  color: var(--bg-ivory);
+}
+
+.text-gold {
+  color: var(--secondary-gold);
+}
+
+/* ========================================= */
+/* --- 1. Google Reviews Grid --- */
+/* ========================================= */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.review-card {
+  background-color: var(--bg-light-ivory);
+  padding: 3rem 2rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(128, 0, 0, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--secondary-gold);
+}
+
+.quote-icon {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  color: var(--secondary-gold);
+  line-height: 1;
+  opacity: 0.4;
+}
+
+.stars {
+  color: var(--secondary-gold);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.review-text {
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  color: var(--text-dark);
+}
+
+.review-author {
+  color: var(--primary-maroon);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.google-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: #4285F4; /* Google Blue */
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+/* ========================================= */
+/* --- 2. Video Testimonials --- */
+/* ========================================= */
+.video-section {
+  background-color: var(--primary-maroon);
+  padding: 2rem 0;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 3rem;
+}
+
+.video-card {
+  background: var(--bg-ivory);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--secondary-gold);
+}
+
+.video-player {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  background-color: #000;
+}
+
+.video-caption {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: var(--bg-ivory);
+}
+
+.video-caption h3 {
+  color: var(--primary-maroon);
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: 'Playfair Display', serif;
+}
+
+/* ========================================= */
+/* --- 3. Client Photos --- */
+/* ========================================= */
+.gallery-section {
+  padding-top: 6rem;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.photo-card {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 5px 15px rgba(128, 0, 0, 0.1);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.photo-card:hover {
+  border-color: var(--secondary-gold);
+  transform: scale(1.02);
+}
+
+.client-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+}

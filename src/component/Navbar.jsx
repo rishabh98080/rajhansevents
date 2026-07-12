@@ -1,18 +1,21 @@
-import { Link } from 'react-router-dom';
-import logo from './assets/logo.jpeg'
-import './Navbar.css'
+"use client";
+
+import Link from 'next/link'; // Import from next/link
+import './Navbar.css';
+
 function Navbar() {
   return (
     <nav className="navbar">
-      <img src = {logo} width = "75px" height="75px"></img>
-      <Link to="/">Home</Link> 
-      <Link to="/about">About Us</Link>
-      <Link to="/services">Our Services</Link>
-      <Link to="/packages">Packages</Link>
-      <Link to="/portfolio">Portfolio</Link>
-      <Link to="/testimonials">Testimonials</Link>
+      <img src='/logo.jpeg' width="75px" height="75px" alt="Logo" />
+      <Link href="/">Home</Link> {/* Use href instead of to */}
+      <Link href="/about">About Us</Link>
+      <Link href="/services">Our Services</Link>
+      <Link href="/packages">Packages</Link>
+      <Link href="/portfolio">Portfolio</Link>
+      <Link href="/contact">Contact</Link>
+      <Link href="/testimonials">Testimonials</Link>
     </nav>
   );
 }
 
-export default Navbar; // Make sure to export it!
+export default Navbar;
