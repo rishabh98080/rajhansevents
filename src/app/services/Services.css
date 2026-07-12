@@ -114,7 +114,11 @@
 /* --- Extended Section (Why Choose Us) --- */
 /* ========================================= */
 .why-choose-us {
-  background-color: var(--primary-maroon);
+  /* background-color: var(--primary-maroon); */
+  background-image: url('/floral.png');
+  background-repeat: no-repeat;
+  background-position: fixed;
+  background-size: cover;
   color: var(--text-light);
   padding: 6rem 10%;
   text-align: center;
