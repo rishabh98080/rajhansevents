@@ -4,7 +4,7 @@ import './About.css';
 
 
 export const metadata = {
-  title: "Raj Hansh Event | Top Event Planning & Management Services",
+  title: "Raj Hansh",
   description: "Transform your special occasions into unforgettable memories with Raj Hansh Event. Expert wedding, corporate, and birthday event planning in Ranchi.",
 };
 export default function About() {
@@ -36,30 +36,30 @@ export default function About() {
       <section className="about-container">
         <div className="about-header">
           <h1>Our Story</h1>
-          <p>Turning milestones into unforgettable memories since 2016[cite: 13].</p>
+          <p>Turning milestones into unforgettable memories since 2016.</p>
         </div>
         
         <div className="about-content">
           <div className="about-text">
             <h2>Rooted & Refined</h2>
             <p>
-              Raj Hansh Event is a Ranchi-based event management company specialising in weddings, birthdays, anniversaries, and corporate events[cite: 13]. We are a fresh, founder-led team built on genuine passion for hospitality and design, and it shows in the personal attention every single client receives[cite: 13].
+              Raj Hansh Event is a Ranchi-based event management company specialising in weddings, birthdays, anniversaries, and corporate events. We are a fresh, founder-led team built on genuine passion for hospitality and design, and it shows in the personal attention every single client receives.
             </p>
             <p>
-              Because we are early in our journey, every event gets our complete, undivided focus[cite: 13]. We believe every celebration tells a story, and we blend traditional Indian hospitality with contemporary design sensibilities to create experiences that feel both rooted and refined[cite: 13].
+              Because we are early in our journey, every event gets our complete, undivided focus. We believe every celebration tells a story, and we blend traditional Indian hospitality with contemporary design sensibilities to create experiences that feel both rooted and refined.
             </p>
             <div className="about-stats">
               <div>
                 <h3>2016</h3>
-                <span>Founded[cite: 13]</span>
+                <span>Founded</span>
               </div>
               <div>
                 <h3>100%</h3>
-                <span>Dedicated Attention[cite: 13]</span>
+                <span>Dedicated Attention</span>
               </div>
               <div>
                 <h3>1-on-1</h3>
-                <span>Founder-Led Service[cite: 13]</span>
+                <span>Founder-Led Service</span>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@ export default function About() {
         <div className="container">
           <div className="section-header">
             <h2 className="section-title text-light">How We Work</h2>
-            <p className="section-subtitle text-gold">From the very first consultation to the final farewell[cite: 13].</p>
+            <p className="section-subtitle text-gold">From the very first consultation to the final farewell.</p>
           </div>
           <div className="process-grid">
             {processSteps.map((item, index) => (
@@ -93,14 +93,14 @@ export default function About() {
       <section className="why-us-section container">
         <div className="section-header">
           <h2 className="section-title">Why Choose Us</h2>
-          <p className="section-subtitle">What sets Raj Hansh Event apart[cite: 13].</p>
+          <p className="section-subtitle">What sets Raj Hansh Event apart.</p>
         </div>
         <div className="why-us-grid">
           {whyChooseUs.map((feature, index) => (
             <div key={index} className="why-us-card">
               <div className="why-us-icon">✦</div>
-              <h3>{feature.title}[cite: 13]</h3>
-              <p>{feature.desc}[cite: 13]</p>
+              <h3>{feature.title}</h3>
+              <p>{feature.desc}</p>
             </div>
           ))}
         </div>
@@ -110,7 +110,7 @@ export default function About() {
       <section className="team-section container bg-light-ivory">
         <div className="section-header">
           <h2 className="section-title">Meet The Team</h2>
-          <p className="section-subtitle">A founder-led team built on genuine passion[cite: 13].</p>
+          <p className="section-subtitle">A founder-led team built on genuine passion.</p>
         </div>
         <div className="team-grid">
           {teamMembers.map(member => (

@@ -32,7 +32,7 @@ export default function Contact() {
         {/* Right Side: Visuals */}
         <div className="contact-visuals">
           <div className="image-stack">
-            <img src="/RJA_0797.JPG.jpeg" alt="Event Ceremony" className="main-img" />
+            <img src="/birthday.jpeg" alt="Event Ceremony" className="main-img" />
             <div className="gold-accent-box"></div>
           </div>
         </div>

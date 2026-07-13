@@ -19,7 +19,7 @@ const pinyon = Pinyon_Script({
 });
 
 export const metadata = {
-  title: "Raj Hansh Event | Premium Event Planning",
+  title: "Raj Hansh",
   description: "Professional wedding, birthday, and corporate event planning in Ranchi.",
 };
 

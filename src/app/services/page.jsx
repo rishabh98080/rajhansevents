@@ -2,7 +2,7 @@
 import './Services.css';
 
 export const metadata = {
-  title: "Our Event Planning Services | Raj Hansh Event",
+  title: "Raj Hansh",
   description: "From luxury weddings to professional corporate events, explore the wide range of management services offered by Raj Hansh Event.",
 };
 export default function Services() {

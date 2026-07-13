@@ -27,14 +27,12 @@ const Footer = () => {
         <div className="footer-column">
           <h3 className="column-title">QUICK LINKS</h3>
           <ul className="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#packages">Packages</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/packages">Packages</a></li>
+            <li><a href="/contact">Contact</a></li>
           </ul>
         </div>
 
@@ -56,13 +54,13 @@ const Footer = () => {
           <h3 className="column-title">CONTACT INFO</h3>
           <ul className="contact-info">
             <li>
-              <span className="gold-icon">📞</span> +91 99994 65250
+              <span className="gold-icon">📞</span> +91 90060 89331
             </li>
             <li>
               <span className="gold-icon">✉️</span> hello@rajhansh.com
             </li>
             <li>
-              <span className="gold-icon">📍</span> 301, Royal Street, London,<br />United Kingdom
+              <span className="gold-icon">📍</span> Ranchi, Jharkhand, India
             </li>
           </ul>
         </div>

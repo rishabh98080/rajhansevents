@@ -4,20 +4,20 @@ import './Home.css';
 
 
 export const metadata = {
-  title: "Raj Hansh Event | Top Event Planning & Management Services",
+  title: "Raj Hansh",
   description: "Transform your special occasions into unforgettable memories with Raj Hansh Event. Expert wedding, corporate, and birthday event planning in Ranchi.",
 };
 export default function Home() {
   const services = [
-    { title: 'Wedding Planning', kicker: 'Explore Our Services', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" },
-    { title: 'Birthday & Anniversary', kicker: 'Explore Our Services', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" },
-    { title: 'Corporate Events', kicker: 'Explore Our Services', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" }
+    { title: 'Wedding Planning', kicker: 'Explore Our Services', img: "/wedding.jpeg" },
+    { title: 'Birthday & Anniversary', kicker: 'Explore Our Services', img: "birthday.jpeg" },
+    { title: 'Corporate Events', kicker: 'Explore Our Services', img: "recept.jpeg" }
   ];
 
   const featuredEvents = [
-    { title: 'Royal Wedding 1', kicker: 'Ranchi, Jharkhand', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" },
-    { title: 'Royal Wedding 2', kicker: 'Ranchi, Jharkhand', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" },
-    { title: 'Royal Wedding 3', kicker: 'Ranchi, Jharkhand', img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" }
+    { title: 'Royal Wedding', kicker: 'Ranchi, Jharkhand', img: "/wedding.jpeg" },
+    { title: 'Reception', kicker: 'Ranchi, Jharkhand', img: "/recept.jpeg" },
+    { title: 'BirthDay', kicker: 'Ranchi, Jharkhand', img: "/birthday.jpeg" }
   ];
 
   return (
@@ -28,10 +28,12 @@ export default function Home() {
         <video autoPlay loop muted playsInline className="hero-video">
           <source src='/hero.mp4' type="video/mp4" />
         </video>
-        <div className="hero-content" style = {{textAlign : 'center'}}>
-          <p><img src = '/logo.jpeg' alt = 'logo' width = "100px" height = "100px"/></p>
-          <h1>Raj Hansh Event</h1>
-          <p>Turning milestones into unforgettable memories since 2016.</p>
+        <div className="hero-content">
+          <div className="logo-wrapper">
+              <img src="/logo.jpeg" alt="logo" width = "100px" height={'100px'}/>
+            </div>
+            <h1>Raj Hansh Event</h1>
+            <p>Turning milestones into unforgettable memories since 2016.</p>
           <div>
             {/* Updated with real phone number */}
             <a href="https://wa.me/919006089331" target="_blank" rel="noreferrer" className="btn btn-whatsapp">

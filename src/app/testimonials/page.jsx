@@ -3,7 +3,7 @@ import './Testimonials.css';
 
 
 export const metadata = {
-  title: "Client Testimonials | Trusted Event Planners",
+  title: "Raj Hansh",
   description: "Read what our happy clients have to say about their experiences with Raj Hansh Event. Your satisfaction is our success.",
 };
 
