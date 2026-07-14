@@ -1,7 +1,7 @@
 "use client"
 
 import styles from './Manage.module.css';
-import { supabase } from '@/pages/api/supbaseClient';
+import { supabase } from '@/app/pages/api/supabaseClient';
 
 export default function ManagePage() {
     const categories = ['All', 'Weddings', 'Corporate', 'Social', 'Destination'];

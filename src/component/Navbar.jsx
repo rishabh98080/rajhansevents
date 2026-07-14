@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'; // Fix 1: Added imports
 import Link from 'next/link'; 
-import { supabase } from '@/pages/api/supbaseClient';
+import { supabase } from '@/app/pages/api/supabaseClient';
 import './Navbar.css';
 
 function Navbar() {

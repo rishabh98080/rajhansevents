@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/pages/api/supbaseClient';
+import { supabase } from '@/app/pages/api/supabaseClient';
 
 export default function VerifyPage() {
   const router = useRouter();
