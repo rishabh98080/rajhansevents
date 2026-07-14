@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './admin.css';
-import { supabase } from '@/app/pages/api/supabaseClient';
+import { supabase } from '@/app/api/supabaseClient';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
