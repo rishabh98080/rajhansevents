@@ -59,7 +59,7 @@ export default function Packages() {
         <div className="custom-quote-section">
           <h3>Need a Custom Package?</h3>
           <p className="text-muted" style={{ margin: '1rem 0' }}>We can tailor everything exactly to your requirements with transparent pricing[cite: 13].</p>
-          <a href="mailto:hello@rajhanshevent.com" className="btn btn-primary">Contact Us for Custom Quote</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@rajhansh.com" target = '_black' className="btn btn-primary">Contact Us for Custom Quote</a>
         </div>
       </section>
 
