@@ -1,283 +1,205 @@
-"use client"
+'use client';
 
+import React, { useState } from 'react';
+import { supabase } from '../api/supabaseClient';
+import { uploadImage } from '../../utils/supabaseUpload';
 import styles from './Manage.module.css';
-import { supabase } from '@/app/api/supabaseClient';
 
 export default function ManagePage() {
-    const categories = ['All', 'Weddings', 'Corporate', 'Social', 'Destination'];
-    const uploadToSupabase = async (file, fixedFileName) => {
-      if (!file) return null;
+  const [loading, setLoading] = useState(false);
+  
+  // Section States
+  const [homeData, setHomeData] = useState({ identifier: 'home_main', logo: null, banner_video: null, banner_title: '', banner_text: '', founded: '' });
+  const [expertiseData, setExpertiseData] = useState({ identifier: '', title: '', file: null });
+  const [featuredData, setFeaturedData] = useState({ identifier: '', title: '', file: null });
+  const [contactData, setContactData] = useState({ identifier: 'contact_main', email: '', phone: '', location: '', insta: '', fb: '' });
+  const [aboutData, setAboutData] = useState({ identifier: 'about_main', description: '' });
+  const [teamData, setTeamData] = useState({ identifier: '', name: '', file: null });
+  const [serviceData, setServiceData] = useState({ identifier: '', title: '', file: null });
+  const [packageData, setPackageData] = useState({ identifier: '', pkg_name: '', f1: '', f2: '', f3: '', f4: '', price: '' });
+  const [portfolioData, setPortfolioData] = useState({ identifier: '', file: null, category: '', media_type: 'image', title : '' });
+  const [testimonialData, setTestimonialData] = useState({ identifier: '', name: '', comment: '', stars: 5 });
+  const [experienceData, setExperienceData] = useState({ identifier: '', title: '', file: null });
+  const [smileData, setSmileData] = useState({ identifier: '', file: null });
 
-      if (!supabase) {
-        console.error("Supabase client is not initialized!");
-        return null;
+  // Universal Submit Handler
+  const handleSubmit = async (e, table, payload, fileData = null, secondaryFileData = null) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      let finalPayload = { ...payload };
+
+      // Handle primary file upload
+      if (fileData && fileData.file) {
+        const fileUrl = await uploadImage(fileData.file, fileData.bucket);
+        finalPayload[fileData.columnName] = fileUrl;
       }
 
-      const filePath = `uploads/${fixedFileName}`;
-
-      const { data, error } = await supabase.storage
-        .from('website-assets')
-        .upload(filePath, file, {
-          upsert: true,
-          contentType: file.type 
-        });
-
-      if (error) {
-        console.error("Upload error:", error);
-        throw error;
+      // Handle secondary file upload (e.g., Logo AND Video on the home page)
+      if (secondaryFileData && secondaryFileData.file) {
+        const fileUrl = await uploadImage(secondaryFileData.file, secondaryFileData.bucket);
+        finalPayload[secondaryFileData.columnName] = fileUrl;
       }
 
-      const { data: urlData } = supabase.storage
-        .from('website-assets')
-        .getPublicUrl(filePath);
+      const { error } = await supabase.from(table).upsert(finalPayload, { onConflict: 'identifier' });
 
-      return urlData.publicUrl;
-    };
+      if (error) throw error;
+      alert(`${table} updated successfully!`);
+    } catch (error) {
+      alert(`Error updating ${table}: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+  return (
+    <div className={styles.manageContainer}>
+      <h1>Website Content Manager</h1>
 
-      const clean = (obj) => Object.fromEntries(
-        Object.entries(obj).filter(([_, v]) => v != null && v !== "")
-      );
-
-      const getFileUrl = async (fileInput, fixedFileName) => {
-        if (fileInput?.files?.[0]) {
-          console.log(`Uploading ${fileInput.files[0].name} as ${fixedFileName}`);
-          return await uploadToSupabase(fileInput.files[0], fixedFileName);
-        }
-        return null;
-      };
-
-      const payload = {
-        websiteSettings: clean({
-          logo_url: await getFileUrl(e.target.logo, "logo.jpg"),
-          banner_video_url: await getFileUrl(e.target.banner_video, "banner_video.mp4"),
-          home_title: e.target.banner_title?.value,
-          home_description: e.target.banner_text?.value,
-          founded: e.target.founded?.value,
-          email: e.target.email?.value,
-          phone: e.target.phone?.value,
-          location: e.target.location?.value,
-          instagram: e.target.insta?.value,
-          facebook: e.target.fb?.value
-        }),
-
-        expertise: (await Promise.all([1, 2, 3].map(async (i) => clean({
-          title: e.target[`expertise_title${i}`]?.value,
-          image_url: await getFileUrl(e.target[`expertise_img${i}`], `expertise_${i}.jpg`)
-        })))).filter(item => item.title),
-
-        featured: (await Promise.all([1, 2, 3].map(async (i) => clean({
-          title: e.target[`feat_title${i}`]?.value,
-          image_url: await getFileUrl(e.target[`feat_img${i}`], `feat_${i}.jpg`)
-        })))).filter(f => f.title),
-
-        word_of_love: [1, 2, 3].map(i => clean({
-          comment: e.target[`love_comment${i}`]?.value,
-          name: e.target[`love_name${i}`]?.value
-        })).filter(w => w.comment),
-
-        about: clean({
-          description: e.target.about_desc?.value
-        }),
-
-        team: (await Promise.all([1, 2, 3].map(async (i) => clean({
-          name: e.target[`team_n${i}`]?.value,
-          photo_url: await getFileUrl(e.target[`team_p${i}`], `team_${i}.jpg`)
-        })))).filter(t => t.name),
-
-        services: (await Promise.all([1, 2, 3].map(async (i) => clean({
-          title: e.target[`serv_title${i}`]?.value,
-          image_url: await getFileUrl(e.target[`serv_img${i}`], `service_${i}.jpg`)
-        })))).filter(s => s.title),
-
-        packages: [1].map(i => clean({
-          name: e.target[`pkg${i}_name`]?.value,
-          features: [
-            e.target[`pkg${i}_f1`]?.value,
-            e.target[`pkg${i}_f2`]?.value,
-            e.target[`pkg${i}_f3`]?.value,
-            e.target[`pkg${i}_f4`]?.value
-          ].filter(Boolean),
-          price: e.target[`pkg${i}_price`]?.value
-        })).filter(p => p.name),
-
-        portfolio: {
-          category: e.target.category?.value
-        },
-
-        testimonials: [1].map(i => clean({
-          stars: e.target[`stars${i}`]?.value ? parseInt(e.target[`stars${i}`].value) : null,
-          comment: e.target[`t_comm${i}`]?.value,
-          name: e.target[`t_name${i}`]?.value
-        })).filter(t => t.comment),
-
-        watch_experience: (await Promise.all([1].map(async (i) => clean({
-          title: e.target[`exp_title${i}`]?.value,
-          video_url: await getFileUrl(e.target[`exp_vid${i}`], `exp_vid_${i}.mp4`)
-        })))).filter(v => v.title),
-
-        smiles: (await Promise.all([1, 2, 3].map(async (i) => clean({
-          image_url: await getFileUrl(e.target[`smile_img${i}`], `smile_${i}.jpg`)
-        })))).filter(s => s.image_url)
-      };
-
-      const hasData = Object.values(payload).some(section =>
-        Array.isArray(section) ? section.length > 0 : Object.keys(section).length > 0
-      );
-
-      if (!hasData) {
-        alert("No changes detected.");
-        return;
-      }
-
-      await fetch('http://localhost:5000/api/save', {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: { 'Content-Type': 'application/json' }
-      });
-    };
-
-    return (
-      <div className={styles.container}>
-        <h1>Website Content Manager</h1>
-
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-            
-            {/* HOME SECTION */}
-            <section className={styles.section}>
-                <h2>Home Page</h2>
-                <label>Logo</label> 
-                <input type="file" name="logo" className={styles.input} placeholder="Upload image file (PNG/JPG)" />
-                
-                <label>Video Banner</label> 
-                <input type="file" name="banner_video" className={styles.input} placeholder="Upload video file (MP4)" />
-                
-                <label>Title on Banner</label> 
-                <input type="text" name="banner_title" className={styles.input} placeholder="Text string - Main heading title" />
-                
-                <label>Text under Title</label> 
-                <textarea name="banner_text" className={styles.input} placeholder="Long text string - Subtitle context description"></textarea>
-                
-                <h3>Our Expertise (3 items)</h3>
-                <div className={styles.group}>
-                    <input type="file" name="expertise_img1" className={styles.input} placeholder="Upload image file" /> 
-                    <input type="text" name="expertise_title1" className={styles.input} placeholder="Title string for item 1" />
-                    
-                    <input type="file" name="expertise_img2" className={styles.input} placeholder="Upload image file" /> 
-                    <input type="text" name="expertise_title2" className={styles.input} placeholder="Title string for item 2" />
-                    
-                    <input type="file" name="expertise_img3" className={styles.input} placeholder="Upload image file" /> 
-                    <input type="text" name="expertise_title3" className={styles.input} placeholder="Title string for item 3" />
-                </div>
-
-                <h3>Featured (3 items)</h3>
-                <div className={styles.group}>
-                    <input type="file" name="feat_img1" className={styles.input} placeholder="Upload image file" /> 
-                    <input type="text" name="feat_title1" className={styles.input} placeholder="Text title for featured item 1" />
-                    
-                    <input type="file" name="feat_img2" className={styles.input} placeholder="Upload image file" /> 
-                    <input type="text" name="feat_title2" className={styles.input} placeholder="Text title for featured item 2" />
-                    
-                    <input type="file" name="feat_img3" className={styles.input} placeholder="Upload image file" /> 
-                    <input type="text" name="feat_title3" className={styles.input} placeholder="Text title for featured item 3" />
-                </div>
-
-                <label>Founded Date/Text</label> 
-                <input type="text" name="founded" className={styles.input} placeholder="Text string or date format (e.g., Est. 2010)" />
-
-                <h3>Words of Love (Testimonials)</h3>
-                <textarea name="love_comment1" className={styles.input} placeholder="Comment description string 1"></textarea> 
-                <input type="text" name="love_name1" className={styles.input} placeholder="Author name string 1" />
-                
-                <textarea name="love_comment2" className={styles.input} placeholder="Comment description string 2"></textarea> 
-                <input type="text" name="love_name2" className={styles.input} placeholder="Author name string 2" />
-                
-                <textarea name="love_comment3" className={styles.input} placeholder="Comment description string 3"></textarea> 
-                <input type="text" name="love_name3" className={styles.input} placeholder="Author name string 3" />
-
-                <h3>Contact Info</h3>
-                <input type="email" name="email" className={styles.input} placeholder="Email format (e.g., contact@domain.com)" />
-                <input type="tel" name="phone" className={styles.input} placeholder="Telephone number format (e.g., +123456789)" />
-                <input type="text" name="location" className={styles.input} placeholder="Physical location address string" />
-                <input type="text" name="insta" className={styles.input} placeholder="Valid Instagram profile URL address" />
-                <input type="text" name="fb" className={styles.input} placeholder="Valid Facebook profile URL address" />
-            </section>
-
-            {/* ABOUT US */}
-            <section className={styles.section}>
-                <h2>About Us</h2>
-                <textarea name="about_desc" className={styles.input} placeholder="Long paragraph text detailing the company backstory"></textarea>
-                
-                <h3>Team</h3>
-                <input type="file" name="team_p1" className={styles.input} placeholder="Upload profile picture" /> 
-                <input type="text" name="team_n1" className={styles.input} placeholder="Team member name 1" />
-                
-                <input type="file" name="team_p2" className={styles.input} placeholder="Upload profile picture" /> 
-                <input type="text" name="team_n2" className={styles.input} placeholder="Team member name 2" />
-                
-                <input type="file" name="team_p3" className={styles.input} placeholder="Upload profile picture" /> 
-                <input type="text" name="team_n3" className={styles.input} placeholder="Team member name 3" />
-                
-                <h3>Services</h3>
-                <input type="file" name="serv_img1" className={styles.input} placeholder="Upload service vector/image" /> 
-                <input type="text" name="serv_title1" className={styles.input} placeholder="Service title 1 description" />
-                
-                <input type="file" name="serv_img2" className={styles.input} placeholder="Upload service vector/image" /> 
-                <input type="text" name="serv_title2" className={styles.input} placeholder="Service title 2 description" />
-                
-                <input type="file" name="serv_img3" className={styles.input} placeholder="Upload service vector/image" /> 
-                <input type="text" name="serv_title3" className={styles.input} placeholder="Service title 3 description" />
-            </section>
-
-            {/* PACKAGES */}
-            <section className={styles.section}>
-                <h2>Packages</h2>
-                <div className={styles.group}>
-                    <input type="text" name="pkg1_name" className={styles.input} placeholder="Package name title designation" />
-                    <input type="text" name="pkg1_f1" className={styles.input} placeholder="Feature text item line 1" /> 
-                    <input type="text" name="pkg1_f2" className={styles.input} placeholder="Feature text item line 2" /> 
-                    <input type="text" name="pkg1_f3" className={styles.input} placeholder="Feature text item line 3" /> 
-                    <input type="text" name="pkg1_f4" className={styles.input} placeholder="Feature text item line 4" />
-                    <input type="text" name="pkg1_price" className={styles.input} placeholder="Price designation value (e.g., $99/mo)" />
-                </div>
-            </section>
-
-            {/* PORTFOLIO */}
-            <section className={styles.section}>
-                <h2>Portfolio</h2>
-                <input type="file" name="port_photos" multiple className={styles.input} placeholder="Select multiple static image showcase items" />
-                <input type="file" name="port_videos" multiple className={styles.input} placeholder="Select multiple video showcase items" />
-                <label>Category</label>
-                <select name="category" className={styles.input} defaultValue="All">
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-            </section>
-
-            {/* TESTIMONIALS & SMILES */}
-            <section className={styles.section}>
-                <h2>Testimonials</h2>
-                <input type="number" name="stars1" min="1" max="5" className={styles.input} placeholder="Numeric value ranking score rating from 1 to 5" /> 
-                <textarea name="t_comm1" className={styles.input} placeholder="Textual feedback response dialogue review commentary"></textarea> 
-                <input type="text" name="t_name1" className={styles.input} placeholder="Review author signature tag name identification" />
-                
-                <h3>Watch Their Experience</h3>
-                <input type="file" name="exp_vid1" className={styles.input} placeholder="Upload media presentation video clip" /> 
-                <input type="text" name="exp_title1" className={styles.input} placeholder="Caption context text string title statement" />
-                
-                <h3>Smiles We Created</h3>
-                <input type="file" name="smile_img1" className={styles.input} placeholder="Showcase smile gallery image item 1" /> 
-                <input type="file" name="smile_img2" className={styles.input} placeholder="Showcase smile gallery image item 2" /> 
-                <input type="file" name="smile_img3" className={styles.input} placeholder="Showcase smile gallery image item 3" />
-            </section>
-
-            <button type="submit" className={styles.button}>Submit Content</button>
+      {/* HOME PAGE */}
+      <section className={styles.section}>
+        <h2>Home Page Main</h2>
+        <form onSubmit={(e) => handleSubmit(
+          e, 'home_content', 
+          { identifier: homeData.identifier, banner_title: homeData.banner_title, banner_text: homeData.banner_text, founded: homeData.founded },
+          { file: homeData.logo, bucket: 'home', columnName: 'logo_url' },
+          { file: homeData.banner_video, bucket: 'home', columnName: 'banner_video_url' }
+        )}>
+          <label>Logo</label>
+          <input type="file" accept="image/*" onChange={e => setHomeData({...homeData, logo: e.target.files[0]})} />
+          <label>Video Banner</label>
+          <input type="file" accept="video/*" onChange={e => setHomeData({...homeData, banner_video: e.target.files[0]})} />
+          <input type="text" placeholder="Title on Banner" onChange={e => setHomeData({...homeData, banner_title: e.target.value})} />
+          <textarea placeholder="Text under Title" onChange={e => setHomeData({...homeData, banner_text: e.target.value})} />
+          <input type="text" placeholder="Founded Date/Text" onChange={e => setHomeData({...homeData, founded: e.target.value})} />
+          <button type="submit" disabled={loading}>Save Home Data</button>
         </form>
-      </div>
-    );
+
+        <h3>Our Expertise (Add 3 items one by one)</h3>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'expertise', { identifier: expertiseData.identifier, title: expertiseData.title }, { file: expertiseData.file, bucket: 'home', columnName: 'image_url' })}>
+          <input type="text" placeholder="Identifier (e.g., exp-1)" required onChange={e => setExpertiseData({...expertiseData, identifier: e.target.value})} />
+          <input type="text" placeholder="Title" required onChange={e => setExpertiseData({...expertiseData, title: e.target.value})} />
+          <input type="file" required onChange={e => setExpertiseData({...expertiseData, file: e.target.files[0]})} />
+          <button type="submit" disabled={loading}>Save Expertise Item</button>
+        </form>
+
+        <h3>Featured (Add 3 items one by one)</h3>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'featured', { identifier: featuredData.identifier, title: featuredData.title }, { file: featuredData.file, bucket: 'home', columnName: 'image_url' })}>
+          <input type="text" placeholder="Identifier (e.g., feat-1)" required onChange={e => setFeaturedData({...featuredData, identifier: e.target.value})} />
+          <input type="text" placeholder="Title" required onChange={e => setFeaturedData({...featuredData, title: e.target.value})} />
+          <input type="file" required onChange={e => setFeaturedData({...featuredData, file: e.target.files[0]})} />
+          <button type="submit" disabled={loading}>Save Featured Item</button>
+        </form>
+
+        <h3>Contact Info</h3>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'contact_info', { identifier: contactData.identifier, email: contactData.email, phone: contactData.phone, location: contactData.location, insta: contactData.insta, fb: contactData.fb })}>
+          <input type="email" placeholder="Email" onChange={e => setContactData({...contactData, email: e.target.value})} />
+          <input type="tel" placeholder="Phone" onChange={e => setContactData({...contactData, phone: e.target.value})} />
+          <input type="text" placeholder="Location" onChange={e => setContactData({...contactData, location: e.target.value})} />
+          <input type="text" placeholder="Instagram URL" onChange={e => setContactData({...contactData, insta: e.target.value})} />
+          <input type="text" placeholder="Facebook URL" onChange={e => setContactData({...contactData, fb: e.target.value})} />
+          <button type="submit" disabled={loading}>Save Contact Info</button>
+        </form>
+      </section>
+
+      {/* ABOUT US */}
+      <section className={styles.section}>
+        <h2>About Us</h2>
+        <form onSubmit={(e) => handleSubmit(e, 'about_us', { identifier: aboutData.identifier, description: aboutData.description })}>
+          <textarea placeholder="About description" required onChange={e => setAboutData({...aboutData, description: e.target.value})} />
+          <button type="submit" disabled={loading}>Save About Text</button>
+        </form>
+
+        <h3>Team</h3>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'team', { identifier: teamData.identifier, name: teamData.name }, { file: teamData.file, bucket: 'team', columnName: 'photo_url' })}>
+          <input type="text" placeholder="Identifier (e.g., team-1)" required onChange={e => setTeamData({...teamData, identifier: e.target.value})} />
+          <input type="text" placeholder="Name" required onChange={e => setTeamData({...teamData, name: e.target.value})} />
+          <input type="file" accept="image/*" required onChange={e => setTeamData({...teamData, file: e.target.files[0]})} />
+          <button type="submit" disabled={loading}>Save Team Member</button>
+        </form>
+
+        <h3>Services</h3>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'services', { identifier: serviceData.identifier, title: serviceData.title }, { file: serviceData.file, bucket: 'services', columnName: 'image_url' })}>
+          <input type="text" placeholder="Identifier (e.g., serv-1)" required onChange={e => setServiceData({...serviceData, identifier: e.target.value})} />
+          <input type="text" placeholder="Service Title" required onChange={e => setServiceData({...serviceData, title: e.target.value})} />
+          <input type="file" accept="image/*" required onChange={e => setServiceData({...serviceData, file: e.target.files[0]})} />
+          <button type="submit" disabled={loading}>Save Service</button>
+        </form>
+      </section>
+
+      {/* PACKAGES */}
+      <section className={styles.section}>
+        <h2>Packages</h2>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'packages', { identifier: packageData.identifier, pkg_name: packageData.pkg_name, f1: packageData.f1, f2: packageData.f2, f3: packageData.f3, f4: packageData.f4, price: packageData.price })}>
+          <input type="text" placeholder="Identifier (e.g., pkg-1)" required onChange={e => setPackageData({...packageData, identifier: e.target.value})} />
+          <input type="text" placeholder="Package Name" required onChange={e => setPackageData({...packageData, pkg_name: e.target.value})} />
+          <input type="text" placeholder="Feature 1" onChange={e => setPackageData({...packageData, f1: e.target.value})} />
+          <input type="text" placeholder="Feature 2" onChange={e => setPackageData({...packageData, f2: e.target.value})} />
+          <input type="text" placeholder="Feature 3" onChange={e => setPackageData({...packageData, f3: e.target.value})} />
+          <input type="text" placeholder="Feature 4" onChange={e => setPackageData({...packageData, f4: e.target.value})} />
+          <input type="text" placeholder="Price" required onChange={e => setPackageData({...packageData, price: e.target.value})} />
+          <button type="submit" disabled={loading}>Save Package</button>
+        </form>
+      </section>
+
+{/* PORTFOLIO */}
+      <section className={styles.section}>
+        <h2>Portfolio (Upload One by One)</h2>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'portfolio', { identifier: portfolioData.identifier, category: portfolioData.category, media_type: portfolioData.media_type }, { file: portfolioData.file, bucket: 'portfolio', columnName: 'media_url' })}>
+          <input type="text" placeholder="Identifier (e.g., port-1)" required onChange={e => setPortfolioData({...portfolioData, identifier: e.target.value})} />
+          <input type="text" placeholder="Title of the image" required onChange={e => setPortfolioData({...portfolioData, title: e.target.value})} />
+          
+          {/* FIX APPLIED HERE: Added defaultValue="" and removed selected from the option */}
+          <select required defaultValue="" onChange={e => setPortfolioData({...portfolioData, category: e.target.value})}>
+            <option value="" disabled>Select Category</option>
+            <option value="wedding-planning">Wedding Planning</option>
+            <option value="birthday-anniversary">Birthday & Anniversary</option>
+            <option value="corporate-events">Corporate Events</option>
+            <option value="decor-design">Decor & Design</option>
+            <option value="catering-coordination">Catering Coordination</option>
+            <option value="venue-selection">Venue Selection</option>
+            <option value="entertainment-logistics">Entertainment & Logistics</option>
+            <option value="photography-films">Photography & Films</option>
+          </select>
+          
+          {/* FIX APPLIED HERE ALSO: Added defaultValue="image" */}
+          <select required defaultValue="image" onChange={e => setPortfolioData({...portfolioData, media_type: e.target.value})}>
+            <option value="image">Image</option>
+            <option value="video">Video</option>
+          </select>
+          
+          <input type="file" required onChange={e => setPortfolioData({...portfolioData, file: e.target.files[0]})} />
+          <button type="submit" disabled={loading}>Save to Portfolio</button>
+        </form>
+      </section>
+
+      {/* TESTIMONIALS & EXPERIENCES */}
+      <section className={styles.section}>
+        <h2>Testimonials</h2>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'testimonials', { identifier: testimonialData.identifier, name: testimonialData.name, comment: testimonialData.comment, stars: testimonialData.stars })}>
+          <input type="text" placeholder="Identifier (e.g., test-1)" required onChange={e => setTestimonialData({...testimonialData, identifier: e.target.value})} />
+          <input type="text" placeholder="Name" required onChange={e => setTestimonialData({...testimonialData, name: e.target.value})} />
+          <textarea placeholder="Comment" required onChange={e => setTestimonialData({...testimonialData, comment: e.target.value})} />
+          <input type="number" min="1" max="5" placeholder="Stars (1-5)" required onChange={e => setTestimonialData({...testimonialData, stars: parseInt(e.target.value)})} />
+          <button type="submit" disabled={loading}>Save Testimonial</button>
+        </form>
+
+        <h3>Watch Their Experience</h3>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'experiences', { identifier: experienceData.identifier, title: experienceData.title }, { file: experienceData.file, bucket: 'testimonials', columnName: 'video_url' })}>
+          <input type="text" placeholder="Identifier" required onChange={e => setExperienceData({...experienceData, identifier: e.target.value})} />
+          <input type="text" placeholder="Title" required onChange={e => setExperienceData({...experienceData, title: e.target.value})} />
+          <input type="file" accept="video/*" required onChange={e => setExperienceData({...experienceData, file: e.target.files[0]})} />
+          <button type="submit" disabled={loading}>Save Experience Video</button>
+        </form>
+
+        <h3>Smiles We Created</h3>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'smiles', { identifier: smileData.identifier }, { file: smileData.file, bucket: 'smiles', columnName: 'image_url' })}>
+          <input type="text" placeholder="Identifier" required onChange={e => setSmileData({...smileData, title: e.target.value})} />
+          <input type="file" accept="image/*" required onChange={e => setSmileData({...smileData, file: e.target.files[0]})} />
+          <button type="submit" disabled={loading}>Save Smile Image</button>
+        </form>
+      </section>
+    </div>
+  );
 }

@@ -1,14 +1,13 @@
-
-
+import { supabase } from '../api/supabaseClient';
 import './About.css';
-
 
 export const metadata = {
   title: "Raj Hansh",
   description: "Transform your special occasions into unforgettable memories with Raj Hansh Event. Expert wedding, corporate, and birthday event planning in Ranchi.",
 };
-export default function About() {
-  const whyChooseUs = [
+
+export default async function About() {
+    const whyChooseUs = [
     { title: 'Dedicated Event Manager', desc: 'One point of contact for your entire event journey - no confusion, no miscommunication.' },
     { title: 'Transparent Pricing', desc: 'Clear, itemised quotations with no hidden costs, so you always know where your budget goes.' },
     { title: 'Trusted Vendor Network', desc: "Nearly a decade of relationships with Ranchi's best decorators, caterers, and artists." },
@@ -16,18 +15,21 @@ export default function About() {
     { title: 'Custom Theming', desc: 'Every event is designed around your story — no two celebrations from us look the same.' },
     { title: 'Local Expertise', desc: 'Deep knowledge of venues and vendors across Jharkhand, with the ability to travel beyond.' }
   ];
+  // Fetch all necessary data from Supabase in parallel for maximum speed
+  const [
+    { data: aboutData },
+    { data: teamMembers },
+  ] = await Promise.all([
+    supabase.from('about_us').select('*').eq('identifier', 'about_main').single(),
+    supabase.from('team').select('*').order('created_at', { ascending: true })
+  ]);
 
+  // Keeping process steps static as they weren't part of the dynamic CMS
   const processSteps = [
     { step: '01', title: 'First Consultation', desc: 'We meet to understand your vision, guest list, and expectations for the celebration.' },
     { step: '02', title: 'Design & Curation', desc: 'We handle venue selection, decor themes, and catering coordination matched to your budget.' },
     { step: '03', title: 'On-Ground Logistics', desc: 'Managing entertainment, transport, and on-ground crew from start to finish.' },
     { step: '04', title: 'Final Farewell', desc: 'You stay fully present in your celebration while we execute the event seamlessly.' }
-  ];
-
-  const teamMembers = [
-    { id: 1, name: 'Founder Name', role: 'Founder & Lead Planner', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800' },
-    { id: 2, name: 'Team Member', role: 'Head of Logistics', img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800' },
-    { id: 3, name: 'Team Member', role: 'Creative Director', img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800' }
   ];
 
   return (
@@ -42,12 +44,15 @@ export default function About() {
         <div className="about-content">
           <div className="about-text">
             <h2>Rooted & Refined</h2>
-            <p>
-              Raj Hansh Event is a Ranchi-based event management company specialising in weddings, birthdays, anniversaries, and corporate events. We are a fresh, founder-led team built on genuine passion for hospitality and design, and it shows in the personal attention every single client receives.
-            </p>
-            <p>
-              Because we are early in our journey, every event gets our complete, undivided focus. We believe every celebration tells a story, and we blend traditional Indian hospitality with contemporary design sensibilities to create experiences that feel both rooted and refined.
-            </p>
+            {/* Render dynamic description. Splitting by double newline to create paragraphs if you type them in the CMS */}
+            {aboutData?.description ? (
+              aboutData.description.split('\n\n').map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
+              ))
+            ) : (
+              <p>Welcome to Raj Hansh Event. We are a Ranchi-based event management company...</p>
+            )}
+            
             <div className="about-stats">
               <div>
                 <h3>2016</h3>
@@ -106,24 +111,29 @@ export default function About() {
         </div>
       </section>
 
-      {/* --- Section 4: Team Photos --- */}
+      {/* --- Section 4: Team Photos (Dynamic) --- */}
       <section className="team-section container bg-light-ivory">
         <div className="section-header">
           <h2 className="section-title">Meet The Team</h2>
           <p className="section-subtitle">A founder-led team built on genuine passion.</p>
         </div>
         <div className="team-grid">
-          {teamMembers.map(member => (
-            <div key={member.id} className="team-card">
-              <div className="team-img-wrapper">
-                <img src={member.img} alt={member.name} className="team-img" />
+          {/* Mapping over live Supabase Team data */}
+          {teamMembers && teamMembers.length > 0 ? (
+            teamMembers.map(member => (
+              <div key={member.identifier} className="team-card">
+                <div className="team-img-wrapper">
+                  <img src={member.photo_url || 'https://via.placeholder.com/400'} alt={member.name} className="team-img" />
+                </div>
+                <div className="team-info">
+                  <h3>{member.name}</h3>
+                  <span className="team-role">Team Member</span>
+                </div>
               </div>
-              <div className="team-info">
-                <h3>{member.name}</h3>
-                <span className="team-role">{member.role}</span>
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>Loading team members...</p>
+          )}
         </div>
       </section>
     </main>

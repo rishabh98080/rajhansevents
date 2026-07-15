@@ -1,6 +1,52 @@
 "use client";
+import { useState, useEffect } from 'react';
+import { supabase } from '@/app/api/supabaseClient';
+import Image from 'next/image'; // Ensure this path matches your setup
 import './Footer.css';
+
 const Footer = () => {
+  const [contactData, setContactData] = useState(null);
+  const [homeData, setHomeData] = useState(null);
+  const [servicesList, setServicesList] = useState([]);
+
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      // Fetch Contact Info
+      const { data: contact } = await supabase
+        .from('contact_info')
+        .select('*')
+        .eq('identifier', 'contact_main')
+        .single();
+      
+      if (contact) setContactData(contact);
+
+      // Fetch Logo from Home Content
+      const { data: home } = await supabase
+        .from('home_content')
+        .select('logo_url')
+        .eq('identifier', 'home_main')
+        .single();
+        
+      if (home) setHomeData(home);
+
+      // Fetch the first 6 Services to populate the links
+      const { data: services } = await supabase
+        .from('services')
+        .select('title')
+        .order('created_at', { ascending: true })
+        .limit(6);
+        
+      if (services) setServicesList(services);
+    };
+
+    fetchFooterData();
+  }, []);
+
+  // Fallbacks for services if the DB is empty
+  const displayServices = servicesList.length > 0 
+    ? servicesList.map(s => s.title)
+    : ['Weddings', 'Corporate Events', 'Social Events', 'Destination Weddings', 'Entertainment & Artists', 'Venue Management'];
+
   return (
     <footer className="site-footer">
       <div className="footer-main">
@@ -8,18 +54,20 @@ const Footer = () => {
         {/* Column 1: Brand & Socials */}
         <div className="footer-column brand-column">
           <div className="footer-logo">
-            <img src = '/logo.jpeg' width = "200px" height = "200px"></img> {/* Placeholder for the golden bird logo */}
+            {/* Dynamic Logo */}
+            <Image src={homeData?.logo_url || '/logo.jpeg'} width="200" height="200" alt="Raj Hansh Logo" />
           </div>
           <p className="brand-tagline">
             We create extraordinary experiences<br />
             that stay with you forever.
           </p>
           <div className="social-icons">
-            <a href="#fb">f</a>
+            {contactData?.fb && <a href={contactData.fb} target="_blank" rel="noreferrer">f</a>}
+            {contactData?.insta && <a href={contactData.insta} target="_blank" rel="noreferrer">in</a>}
+            {/* Keep placeholders if you want them, or map them to future DB columns */}
             <a href="#tw">t</a>
             <a href="#pi">p</a>
             <a href="#go">g</a>
-            <a href="#li">in</a>
           </div>
         </div>
 
@@ -27,7 +75,7 @@ const Footer = () => {
         <div className="footer-column">
           <h3 className="column-title">QUICK LINKS</h3>
           <ul className="footer-links">
-            <li><a href="/home">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/about">About Us</a></li>
             <li><a href="/services">Services</a></li>
             <li><a href="/portfolio">Portfolio</a></li>
@@ -36,31 +84,28 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Column 3: Our Services */}
+        {/* Column 3: Our Services (Dynamic) */}
         <div className="footer-column">
           <h3 className="column-title">OUR SERVICES</h3>
           <ul className="footer-links">
-            <li><a href="#weddings">Weddings</a></li>
-            <li><a href="#corporate">Corporate Events</a></li>
-            <li><a href="#social">Social Events</a></li>
-            <li><a href="#destination">Destination Weddings</a></li>
-            <li><a href="#entertainment">Entertainment & Artists</a></li>
-            <li><a href="#venue">Venue Management</a></li>
+            {displayServices.map((serviceName, index) => (
+              <li key={index}><a href="/services">{serviceName}</a></li>
+            ))}
           </ul>
         </div>
 
-        {/* Column 4: Contact Info */}
+        {/* Column 4: Contact Info (Dynamic) */}
         <div className="footer-column">
           <h3 className="column-title">CONTACT INFO</h3>
           <ul className="contact-info">
             <li>
-              <span className="gold-icon">📞</span> +91 90060 89331
+              <span className="gold-icon">📞</span> {contactData?.phone || '+91 90060 89331'}
             </li>
             <li>
-              <span className="gold-icon">✉️</span> hello@rajhansh.com
+              <span className="gold-icon">✉️</span> {contactData?.email || 'hello@rajhansh.com'}
             </li>
             <li>
-              <span className="gold-icon">📍</span> Ranchi, Jharkhand, India
+              <span className="gold-icon">📍</span> {contactData?.location || 'Ranchi, Jharkhand, India'}
             </li>
           </ul>
         </div>
@@ -79,7 +124,8 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="footer-bottom">
-        <p>&copy; 2026 Raj Hansh Event Management. All Rights Reserved.</p>
+        {/* Dynamic Year */}
+        <p>&copy; {new Date().getFullYear()} Raj Hansh Event Management. All Rights Reserved.</p>
         <div className="footer-legal">
           <a href="#privacy">Privacy Policy</a>
           <a href="#terms">Terms & Conditions</a>

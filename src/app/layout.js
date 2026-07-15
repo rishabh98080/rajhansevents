@@ -1,6 +1,8 @@
 import { Inter, Cinzel, Pinyon_Script } from 'next/font/google';
 import Navbar from '@/component/Navbar';
 import Footer from '@/component/Footer';
+import WhatsAppWidget from '@/component/WhatAppWidget'; 
+
 // Define the fonts
 const inter = Inter({ 
   subsets: ['latin'],
@@ -30,6 +32,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main>{children}</main> {/* Ensures content is wrapped correctly */}
         <Footer />
+        <WhatsAppWidget/>
       </body>
     </html>
   );

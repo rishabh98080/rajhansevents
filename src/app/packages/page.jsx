@@ -1,36 +1,44 @@
-
+import { supabase } from '@/app/api/supabaseClient';
 import './Packages.css';
-
 
 export const metadata = {
   title: "Raj Hansh",
-  description: "From luxury weddings to professional corporate events, explore the wide range of management services offered by Raj Hansh Event.",
+  description: "From luxury weddings to professional corporate events, explore the wide range of management services offered by Raj Hansh Event."
 };
-export default function Packages() {
-  // Core packages
-  const packages = [
-    { name: 'Silver', price: '₹1,50,000', features: ['Basic Planning', 'Venue Booking', 'Basic Decor', 'Catering Assistance'] },
-    { name: 'Gold', price: '₹2,50,000', features: ['Full Planning', 'Premium Decor', 'Catering Management', 'Photography'] },
-    { name: 'Platinum', price: '₹4,00,000', features: ['Luxury Planning', 'Celebrity Entertainment', '5-Star Hospitality', 'Complete Filming'] },
+
+export default async function Packages() {
+  // Fetch packages from Supabase
+  const { data: packagesData } = await supabase
+    .from('packages')
+    .select('*')
+    .order('created_at', { ascending: true });
+
+  // Core packages used as fallbacks if the database is empty[cite: 7]
+  const fallbackPackages = [
+    { pkg_name: 'Silver', price: '₹1,50,000', f1: 'Basic Planning', f2: 'Venue Booking', f3: 'Basic Decor', f4: 'Catering Assistance' },
+    { pkg_name: 'Gold', price: '₹2,50,000', f1: 'Full Planning', f2: 'Premium Decor', f3: 'Catering Management', f4: 'Photography' },
+    { pkg_name: 'Platinum', price: '₹4,00,000', f1: 'Luxury Planning', f2: 'Celebrity Entertainment', f3: '5-Star Hospitality', f4: 'Complete Filming' },
   ];
 
-  // Updated to match the Raj Hansh Working Process styling
+  const displayPackages = packagesData && packagesData.length > 0 ? packagesData : fallbackPackages;
+
+  // Updated to match the Raj Hansh Working Process styling[cite: 7]
   const steps = [
     { num: '01', title: 'First Consultation', desc: 'We meet to understand your vision, guest list, and expectations for the celebration.' },
-    { num: '02', title: 'Design & Curation', desc: 'Our team crafts a custom design board and detailed proposal with transparent pricing[cite: 13].' },
-    { num: '03', title: 'On-Ground Logistics', desc: 'We handle all vendor bookings, entertainment, transport, and on-ground crew[cite: 13].' },
-    { num: '04', title: 'Final Farewell', desc: 'You stay fully present in your celebration while we execute the event seamlessly[cite: 13].' }
+    { num: '02', title: 'Design & Curation', desc: 'Our team crafts a custom design board and detailed proposal with transparent pricing.' },
+    { num: '03', title: 'On-Ground Logistics', desc: 'We handle all vendor bookings, entertainment, transport, and on-ground crew.' },
+    { num: '04', title: 'Final Farewell', desc: 'You stay fully present in your celebration while we execute the event seamlessly.' }
   ];
 
-  // FAQs
+  // FAQs[cite: 7]
   const faqs = [
-    { q: 'Can I customize a package?', a: 'Absolutely! Every event is designed around your story, and we provide clear, itemised quotations with no hidden costs[cite: 13].' },
-    { q: 'Do you travel for destination events?', a: 'Yes! While we are based in Ranchi, we have deep knowledge of venues across Jharkhand and frequently travel beyond[cite: 13].' },
-    { q: 'How far in advance should we book?', a: 'We recommend booking at least 6-8 months in advance so we can dedicate our 1-on-1 founder-led focus to your celebration[cite: 13].' }
+    { q: 'Can I customize a package?', a: 'Absolutely! Every event is designed around your story, and we provide clear, itemised quotations with no hidden costs.' },
+    { q: 'Do you travel for destination events?', a: 'Yes! While we are based in Ranchi, we have deep knowledge of venues across Jharkhand and frequently travel beyond.' },
+    { q: 'How far in advance should we book?', a: 'We recommend booking at least 6-8 months in advance so we can dedicate our 1-on-1 founder-led focus to your celebration.' }
   ];
 
   return (
-    // Removed the global 'container' class from main so sections can stretch full-width
+    // Removed the global 'container' class from main so sections can stretch full-width[cite: 7]
     <main className="packages-page">
       
       {/* --- Packages Section --- */}
@@ -41,25 +49,50 @@ export default function Packages() {
         </div>
 
         <div className="grid-3">
-          {packages.map((pkg, index) => (
-            <div key={index} className="pricing-card">
-              <h3>{pkg.name}</h3>
-              <div className="price">{pkg.price}</div>
-              <p className="text-muted" style={{ marginBottom: '1rem' }}>Starting From</p>
-              <ul>
-                {pkg.features.map((feature, i) => (
-                  <li key={i}>✓ {feature}</li>
-                ))}
-              </ul>
-              <button className="btn btn-outline" style={{ width: '100%' }}>Select Package</button>
-            </div>
-          ))}
+          {displayPackages.map((pkg, index) => {
+            // Map the individual database feature columns into an array and filter out any empty ones
+            const features = [pkg.f1, pkg.f2, pkg.f3, pkg.f4].filter(Boolean);
+            
+            return (
+              <div key={pkg.identifier || index} className="pricing-card">
+                <h3>{pkg.pkg_name}</h3>
+                <div className="price">{pkg.price}</div>
+                <p className="text-muted" style={{ marginBottom: '1rem' }}>Starting From</p>
+                <ul>
+                  {features.map((feature, i) => (
+                    <li key={i}>✓ {feature}</li>
+                  ))}
+                </ul>
+                <a style= {{maxWidth :'80%'}}
+                  href={`https://wa.me/91YOURWHATSAPPNUMBER?text=${encodeURIComponent(
+                    `Hello Raj Hansh Events,
+
+                I'm interested in your ${pkg.pkg_name} Package.
+
+                Could you please share:
+                • Complete package details
+                • What's included
+                • Pricing breakdown
+                • Availability for my event
+                • Next steps
+
+                Thank you!`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline"
+                >
+                  Select Package
+                </a>
+              </div>
+            );
+          })}
         </div>
 
         <div className="custom-quote-section">
           <h3>Need a Custom Package?</h3>
-          <p className="text-muted" style={{ margin: '1rem 0' }}>We can tailor everything exactly to your requirements with transparent pricing[cite: 13].</p>
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@rajhansh.com" target = '_black' className="btn btn-primary">Contact Us for Custom Quote</a>
+          <p className="text-muted" style={{ margin: '1rem 0' }}>We can tailor everything exactly to your requirements with transparent pricing.</p>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@rajhansh.com" target="_blank" rel="noreferrer" className="btn btn-primary">Contact Us for Custom Quote</a>
         </div>
       </section>
 

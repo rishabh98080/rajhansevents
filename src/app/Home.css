@@ -1,6 +1,8 @@
 /* --- Base Styles & Color Palette --- */
 :root {
   /* Core Palette */
+  --whatsapp-green : #128C7E;
+  --whatsapp-hover: #25D366;
   --primary-maroon: #800000;
   --secondary-gold: #D4AF37;
   --bg-ivory: #FFFFF0;
@@ -276,6 +278,8 @@ body {
 
 /* --- Final CTA --- */
 .cta-section {
+  padding: 3px;
+  border-radius: 10px;
   background-color: var(--bg-light);
   border-top: 1px solid rgba(212, 175, 55, 0.2);
 }

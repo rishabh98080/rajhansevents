@@ -37,6 +37,49 @@ export default function AdminLoginPage() {
     window.location.reload(); // Refresh to update Navbar state
   };
 
+  // NEW: Handle inactivity and tab close
+  useEffect(() => {
+    let inactivityTimer;
+
+    const resetTimer = () => {
+      clearTimeout(inactivityTimer);
+      // 20 minutes = 20 * 60 * 1000 = 1200000 milliseconds
+      inactivityTimer = setTimeout(() => {
+        handleLogout();
+      }, 1200000); 
+    };
+
+    const handleTabClose = () => {
+      // Best-effort synchronous logout on tab close
+      supabase.auth.signOut();
+    };
+
+    // Only attach these listeners if the user is actually logged in
+    if (isAdmin) {
+      // Listen for basic user interactions to reset the 20-min timer
+      const activityEvents = ['mousemove', 'keydown', 'scroll', 'touchstart', 'click'];
+      
+      activityEvents.forEach((event) => {
+        window.addEventListener(event, resetTimer);
+      });
+
+      // Listen for the window/tab closing
+      window.addEventListener('beforeunload', handleTabClose);
+
+      // Start the timer initially
+      resetTimer();
+
+      // Cleanup function when the component unmounts or state changes
+      return () => {
+        clearTimeout(inactivityTimer);
+        activityEvents.forEach((event) => {
+          window.removeEventListener(event, resetTimer);
+        });
+        window.removeEventListener('beforeunload', handleTabClose);
+      };
+    }
+  }, [isAdmin]);
+
   const verifyAdminRole = async (userId) => {
     const { data: profile } = await supabase
       .from('profiles')

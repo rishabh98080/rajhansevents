@@ -1,39 +1,114 @@
-.container {
-  background-color: #FFFFF0; /* Ivory */
-  color: #800000; /* Maroon */
-  padding: 40px;
+.manageContainer {
+  font-family: sans-serif;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  color: #333;
+}
+
+.manageContainer h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #222;
 }
 
 .section {
-  border: 2px solid #FFD700; /* Gold */
-  padding: 20px;
+  border: 1px solid #ccc;
+  padding: 25px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section h2 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-top: 0;
+  color: #111;
+}
+
+.section h3 {
+  margin-top: 25px;
+  color: #444;
+  font-size: 1.1rem;
+}
+
+.group {
   margin-bottom: 20px;
-  border-radius: 10px;
-}
-
-.input {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border: 1px solid #800000;
-  border-radius: 5px;
-  background-color: white;
-}
-
-.button {
-  width: 100%;
   padding: 15px;
-  background-color: #800000;
-  color: #FFD700;
-  border: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
+  background: #f9f9f9;
+  border-left: 4px solid #007bff;
+  border-radius: 0 6px 6px 0;
 }
 
-.button:hover {
-  background-color: #FFD700;
-  color: #800000;
+.manageContainer label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Target all form inputs inside the container */
+.manageContainer input[type="text"],
+.manageContainer input[type="email"],
+.manageContainer input[type="tel"],
+.manageContainer input[type="number"],
+.manageContainer input[type="file"],
+.manageContainer select,
+.manageContainer textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.manageContainer textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Give inputs a nice focus outline */
+.manageContainer input:focus,
+.manageContainer select:focus,
+.manageContainer textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.manageContainer button {
+  background: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.manageContainer button:hover {
+  background: #0056b3;
+}
+
+.manageContainer button:disabled {
+  background: #a0c4eb;
+  cursor: not-allowed;
+}
+
+.manageContainer hr {
+  border: 0;
+  height: 1px;
+  background: #eaeaea;
+  margin: 40px 0;
 }
