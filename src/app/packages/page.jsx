@@ -63,7 +63,7 @@ export default async function Packages() {
                     <li key={i}>✓ {feature}</li>
                   ))}
                 </ul>
-                <a style= {{maxWidth :'80%'}}
+                <a style= {{maxWidth :'95%'}}
                   href={`https://wa.me/91YOURWHATSAPPNUMBER?text=${encodeURIComponent(
                     `Hello Raj Hansh Events,
 
