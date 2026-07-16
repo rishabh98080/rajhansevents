@@ -11,7 +11,7 @@
 .portfolio-container {
   padding: 5rem 10%;
   background-color: var(--bg-ivory);
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--font-body);
   min-height: 100vh;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .portfolio-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   font-size: 3.5rem;
   color: var(--primary-maroon);
   margin-bottom: 0.5rem;
@@ -222,7 +222,33 @@
   color: white;
   cursor: pointer;
 }
+/* ========================================= */
+/* --- Skeleton Loader --- */
+/* ========================================= */
+.skeleton-card {
+  border-radius: 12px;
+  aspect-ratio: 4 / 5; 
+background: linear-gradient(
+    90deg, 
+    #ece1cd 0%, 
+    #ffffff 50%, 
+    #ece1cd 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border: 2px solid transparent;
+  box-shadow: 0 10px 20px rgba(128, 0, 0, 0.05);
+  box-sizing: border-box;
+}
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }

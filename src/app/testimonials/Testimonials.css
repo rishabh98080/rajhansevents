@@ -7,47 +7,47 @@
   --bg-ivory: #FFFFF0;
   --bg-light-ivory: #FDF5E6;
   --text-dark: #4A0404;
-  --text-muted: #993333;
+  --text-muted: #993333; /*[cite: 11] */
 }
 
 .testimonials-page {
   background-color: var(--bg-ivory);
-  font-family: 'Inter', -apple-system, sans-serif;
-  color: var(--text-dark);
+  font-family: var(--font-body); /* Updated */
+  color: var(--text-dark); /*[cite: 11] */
 }
 
 .testimonials-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 5rem 2rem;
+  padding: 5rem 2rem; /*[cite: 11] */
 }
 
 /* --- Headers --- */
 .section-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 4rem; /*[cite: 11] */
 }
 
 .section-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading); /* Updated */
   font-size: 3rem;
   color: var(--primary-maroon);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /*[cite: 11] */
 }
 
 .section-subtitle {
   color: var(--secondary-gold);
   font-size: 1.2rem;
   font-style: italic;
-  font-weight: 600;
+  font-weight: 600; /*[cite: 11] */
 }
 
 .text-light {
-  color: var(--bg-ivory);
+  color: var(--bg-ivory); /*[cite: 11] */
 }
 
 .text-gold {
-  color: var(--secondary-gold);
+  color: var(--secondary-gold); /*[cite: 11] */
 }
 
 /* ========================================= */
@@ -56,7 +56,7 @@
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
+  gap: 2.5rem; /*[cite: 11] */
 }
 
 .review-card {
@@ -67,12 +67,12 @@
   box-shadow: 0 10px 25px rgba(128, 0, 0, 0.05);
   border: 1px solid rgba(212, 175, 55, 0.2);
   position: relative;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease; /*[cite: 11] */
 }
 
 .review-card:hover {
   transform: translateY(-5px);
-  border-color: var(--secondary-gold);
+  border-color: var(--secondary-gold); /*[cite: 11] */
 }
 
 .quote-icon {
@@ -80,31 +80,31 @@
   top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading); /* Updated */
   font-size: 5rem;
   color: var(--secondary-gold);
   line-height: 1;
-  opacity: 0.4;
+  opacity: 0.4; /*[cite: 11] */
 }
 
 .stars {
   color: var(--secondary-gold);
   font-size: 1.2rem;
   letter-spacing: 2px;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; /*[cite: 11] */
 }
 
 .review-text {
   font-style: italic;
   line-height: 1.7;
   margin-bottom: 2rem;
-  color: var(--text-dark);
+  color: var(--text-dark); /*[cite: 11] */
 }
 
 .review-author {
   color: var(--primary-maroon);
   font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /*[cite: 11] */
 }
 
 .review-platform {
@@ -113,7 +113,7 @@
   gap: 0.5rem;
   font-size: 0.85rem;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 600; /*[cite: 11] */
 }
 
 .google-icon {
@@ -122,11 +122,11 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  background-color: #4285F4; /* Google Blue */
+  background-color: #4285F4; 
   color: white;
   border-radius: 50%;
   font-weight: bold;
-  font-size: 0.7rem;
+  font-size: 0.7rem; /*[cite: 11] */
 }
 
 /* ========================================= */
@@ -134,13 +134,13 @@
 /* ========================================= */
 .video-section {
   background-color: var(--primary-maroon);
-  padding: 2rem 0;
+  padding: 2rem 0; /*[cite: 11] */
 }
 
 .video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 3rem;
+  gap: 3rem; /*[cite: 11] */
 }
 
 .video-card {
@@ -148,7 +148,7 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  border: 2px solid var(--secondary-gold);
+  border: 2px solid var(--secondary-gold); /*[cite: 11] */
 }
 
 .video-player {
@@ -156,33 +156,33 @@
   height: 300px;
   object-fit: cover;
   display: block;
-  background-color: #000;
+  background-color: #000; /*[cite: 11] */
 }
 
 .video-caption {
   padding: 1.5rem;
   text-align: center;
-  background-color: var(--bg-ivory);
+  background-color: var(--bg-ivory); /*[cite: 11] */
 }
 
 .video-caption h3 {
   color: var(--primary-maroon);
   margin: 0;
   font-size: 1.2rem;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading); /* Updated */
 }
 
 /* ========================================= */
 /* --- 3. Client Photos --- */
 /* ========================================= */
 .gallery-section {
-  padding-top: 6rem;
+  padding-top: 6rem; /*[cite: 11] */
 }
 
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 1.5rem; /*[cite: 11] */
 }
 
 .photo-card {
@@ -191,19 +191,19 @@
   aspect-ratio: 1 / 1;
   box-shadow: 0 5px 15px rgba(128, 0, 0, 0.1);
   border: 2px solid transparent;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; /*[cite: 11] */
 }
 
 .photo-card:hover {
   border-color: var(--secondary-gold);
-  transform: scale(1.02);
+  transform: scale(1.02); /*[cite: 11] */
 }
 
 .client-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  display: block; /*[cite: 11] */
 }
 
 /* --- Responsive Adjustments --- */
@@ -215,4 +215,4 @@
   .section-title {
     font-size: 2.2rem;
   }
-}
+} /*[cite: 11] */

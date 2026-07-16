@@ -1,38 +1,54 @@
-import { Inter, Cinzel, Pinyon_Script } from 'next/font/google';
+import { 
+  Playfair_Display, 
+  Cormorant_Garamond, 
+  Nunito_Sans, 
+  Poppins 
+} from 'next/font/google';
 import Navbar from '@/component/Navbar';
 import Footer from '@/component/Footer';
 import WhatsAppWidget from '@/component/WidgetLoader'; 
 
-// Define the fonts
-const inter = Inter({ 
+// --- HEADING FONTS ---
+const playfair = Playfair_Display({ 
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-playfair',
 });
 
-const cinzel = Cinzel({ 
+const cormorant = Cormorant_Garamond({ 
+  weight: ['400', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-cinzel',
+  variable: '--font-cormorant',
 });
 
-const pinyon = Pinyon_Script({ 
-  weight: '400',
+// --- BODY / VERSATILE FONTS ---
+const nunito = Nunito_Sans({ 
+  weight: ['300', '400', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-pinyon',
+  variable: '--font-nunito',
+});
+
+const poppins = Poppins({
+  weight: ['300', '400', '500', '600'],
+  subsets: ['latin'],
+  variable: '--font-poppins',
 });
 
 export const metadata = {
   title: "Raj Hansh",
-  description: "Professional wedding, birthday, and corporate event planning in Ranchi.",
+  description: "Professional wedding, birthday, and corporate event planning in Ranchi.", //[cite: 3]
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${cinzel.variable} ${pinyon.variable}`}>
+    <html 
+      lang="en" 
+      className={`${playfair.variable} ${cormorant.variable} ${nunito.variable} ${poppins.variable}`}
+    >
       <body>
-        <Navbar />
-        <main>{children}</main> {/* Ensures content is wrapped correctly */}
-        <Footer />
-        <WhatsAppWidget/>
+        <Navbar /> {/*[cite: 3] */}
+        <main>{children}</main> {/* Ensures content is wrapped correctly[cite: 3] */}
+        <Footer /> {/*[cite: 3] */}
+        <WhatsAppWidget /> {/*[cite: 3] */}
       </body>
     </html>
   );

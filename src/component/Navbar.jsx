@@ -43,7 +43,7 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <img src='/logo.jpeg' width="75px" height="75px" alt="Logo" />
+      <img src='/logo.png' width="100px" height="100px" alt="Logo" />
       <Link href="/">Home</Link>
       <Link href="/about">About Us</Link>
       <Link href="/services">Our Services</Link>

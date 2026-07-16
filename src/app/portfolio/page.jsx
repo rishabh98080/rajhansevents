@@ -55,6 +55,9 @@ export default function Portfolio() {
   // Function to close the modal
   const closeModal = () => setSelectedMedia(null);
 
+  // Creates an array of 6 items to map over for the skeletons while loading
+  const skeletonArray = Array.from({ length: 6 });
+
   return (
     <main className="portfolio-container">
       <div className="portfolio-header">
@@ -78,8 +81,12 @@ export default function Portfolio() {
       {/* Portfolio Grid */}
       <div className="portfolio-grid">
         {loading ? (
-          <p style={{ width: '100%', textAlign: 'center' }}>Loading gallery...</p>
+          /* --- RENDER SKELETONS --- */
+          skeletonArray.map((_, index) => (
+            <div key={`skeleton-${index}`} className="skeleton-card"></div>
+          ))
         ) : (
+          /* --- RENDER ACTUAL CARDS --- */
           filteredProjects.map(project => (
             <div 
               key={project.identifier || project.id} 

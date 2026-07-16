@@ -27,15 +27,11 @@ export default async function Services() {
 
   const displayServices = servicesData && servicesData.length > 0 ? servicesData : fallbackServices;
 
-  // Keeping the 'Why Choose Us' features static as they weren't strictly defined in the CMS schema
-  // (Though you could easily add a 'features' table later if you want to make them dynamic!)
-  const whyChooseUs = [
-    { title: 'Dedicated Event Manager', desc: 'One point of contact for your entire event journey - no confusion, no miscommunication.' },
-    { title: 'Transparent Pricing', desc: 'Clear, itemised quotations with no hidden costs, so you always know where your budget goes.' },
-    { title: 'Trusted Vendor Network', desc: "Nearly a decade of relationships with Ranchi's best decorators, caterers, and artists." },
-    { title: 'On-Ground Execution', desc: "Our team is present at every event, managing logistics in real time so you don't have to." },
-    { title: 'Custom Theming', desc: 'Every event is designed around your story — no two celebrations from us look the same.' },
-    { title: 'Local Expertise', desc: 'Deep knowledge of venues and vendors across Jharkhand, with the ability to travel beyond.' }
+  // Replaced "Why Choose Us" with a text-only Planning Process section
+  const planningProcess = [
+    { step: '01', title: 'Initial Consultation', desc: 'We sit down with you to understand your vision, preferences, and budget, ensuring we align completely with your dream.' },
+    { step: '02', title: 'Design & Curation', desc: 'Our team crafts a meticulous plan, pulling together the best vendors, themes, and timelines tailored just for you.' },
+    { step: '03', title: 'Flawless Execution', desc: 'On the big day, we handle every single detail behind the scenes so you can focus on making beautiful memories with your guests.' }
   ];
 
   return (
@@ -55,7 +51,6 @@ export default async function Services() {
               <div className="card-overlay"></div>
               
               <div className="card-content">
-                {/* Fallback to static kicker if one isn't provided by DB */}
                 <span className="card-kicker">{service.kicker || 'Explore Our Services'}</span>
                 <h3 className="card-title">{service.title}</h3>
               </div>
@@ -64,15 +59,16 @@ export default async function Services() {
         </div>
       </section>
 
-      {/* --- Extended Section: Why Choose Us --- */}
-      <section className="why-choose-us">
+      {/* --- Extended Section: Our Process --- */}
+      <section className="process-section">
         <div className="container">
-          <h2 className="section-title">Why Choose Us</h2>
-          <div className="features-grid">
-            {whyChooseUs.map((feature, index) => (
-              <div key={index} className="feature">
-                <h3>{feature.title}</h3>
-                <p>{feature.desc}</p>
+          <h2 className="section-title">How We Bring It to Life</h2>
+          <div className="process-grid">
+            {planningProcess.map((item, index) => (
+              <div key={index} className="process-card">
+                <span className="process-step">{item.step}</span>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
               </div>
             ))}
           </div>

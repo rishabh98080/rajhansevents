@@ -1,23 +1,23 @@
 .contact-page {
   background-color: var(--bg-ivory);
   padding: 80px 10%;
-  color: var(--text-dark);
+  color: var(--text-dark); /*[cite: 7] */
 }
 
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: start;
+  align-items: start; /*[cite: 7] */
 }
 
 .sub-text {
-  font-family: var(--font-cinzel);
+  font-family: var(--font-accent); /* Updated */
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--primary-maroon);
   margin-bottom: 30px;
-  font-weight: 700;
+  font-weight: 700; /*[cite: 7] */
 }
 
 /* Form Styling */
@@ -30,7 +30,7 @@
   padding: 15px 0;
   margin-bottom: 20px;
   color: var(--text-dark);
-  font-family: var(--font-base);
+  font-family: var(--font-body); /* Updated */
 }
 
 .luxury-form button {
@@ -40,27 +40,27 @@
   border: 1px solid var(--secondary-gold);
   cursor: pointer;
   transition: 0.4s;
-  font-family: var(--font-cinzel);
-  text-transform: uppercase;
+  font-family: var(--font-heading); /* Updated */
+  text-transform: uppercase; /*[cite: 7] */
 }
 
 /* Map Styling */
 .location-data {
   margin-top: 40px;
   border-top: 2px solid var(--secondary-gold);
-  padding-top: 20px;
+  padding-top: 20px; /*[cite: 7] */
 }
 
 .location-data p {
-  font-family: var(--font-cinzel);
+  font-family: var(--font-heading); /* Updated */
   margin-bottom: 15px;
-  color: var(--primary-maroon);
+  color: var(--primary-maroon); /*[cite: 7] */
 }
 
 .map-container {
   border: 4px solid var(--secondary-gold);
   border-radius: 8px;
-  overflow: hidden;
+  overflow: hidden; /*[cite: 7] */
 }
 
 /* Visuals */
@@ -68,13 +68,13 @@
   position: relative;
   height: 600px;
   max-width: 500px;
-  border: 2px solid var(--secondary-gold);
+  border: 2px solid var(--secondary-gold); /*[cite: 7] */
 }
 
 .main-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /*[cite: 7] */
 }
 
 .gold-accent-box {
@@ -83,7 +83,7 @@
   right: -20px;
   width: 100px;
   height: 100px;
-  border: 5px solid var(--secondary-gold);
+  border: 5px solid var(--secondary-gold); /*[cite: 7] */
 }
 
 /* =========================================
@@ -91,34 +91,28 @@
 ========================================= */
 @media screen and (max-width: 768px) {
   .contact-page {
-    /* Reduce the massive side padding */
     padding: 40px 5%; 
   }
 
   .contact-grid {
-    /* Stack the form and the image/map on top of each other */
     grid-template-columns: 1fr; 
     gap: 40px; 
   }
 
   .luxury-form button {
-    /* Full-width buttons are much easier to tap on phones */
     width: 100%; 
   }
 
   .image-stack {
-    /* Prevent the image from taking up the entire mobile screen height */
     height: 350px; 
-    /* Give the gold box a little breathing room so it doesn't cause horizontal scrolling */
     margin-right: 15px; 
   }
 
   .gold-accent-box {
-    /* Scale down the decorative box for smaller screens */
     width: 60px;
     height: 60px;
     bottom: -15px;
     right: -15px;
     border-width: 3px;
   }
-}
+} /*[cite: 7] */

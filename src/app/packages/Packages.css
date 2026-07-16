@@ -7,55 +7,55 @@
   --bg-ivory: #FFFFF0;
   --bg-light-ivory: #FDF5E6;
   --text-dark: #4A0404;
-  --text-muted: #993333;
+  --text-muted: #993333; /*[cite: 8] */
 }
 
 body {
   background-color: var(--bg-ivory);
   color: var(--text-dark);
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--font-body); /* Updated */
 }
 
 .packages-page {
   padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 5rem; /*[cite: 8] */
 }
 
 /* Base Container to restrict width of inner elements */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2rem; /*[cite: 8] */
 }
 
 .text-center {
-  text-align: center;
+  text-align: center; /*[cite: 8] */
 }
 
 .section-header {
-  margin-bottom: 3rem;
+  margin-bottom: 3rem; /*[cite: 8] */
 }
 
 .section-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading); /* Updated */
   font-size: 3rem;
   color: var(--primary-maroon);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /*[cite: 8] */
 }
 
 .section-subtitle {
   color: var(--secondary-gold);
   font-size: 1.2rem;
   font-style: italic;
-  font-weight: 600;
+  font-weight: 600; /*[cite: 8] */
 }
 
 .text-light {
-  color: var(--bg-ivory);
+  color: var(--bg-ivory); /*[cite: 8] */
 }
 
 .text-gold {
-  color: var(--secondary-gold);
+  color: var(--secondary-gold); /*[cite: 8] */
 }
 
 /* ========================================= */
@@ -63,8 +63,8 @@ body {
 /* ========================================= */
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reduced from 300px */
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 2.5rem; /*[cite: 8] */
 }
 
 .pricing-card {
@@ -76,47 +76,47 @@ body {
   border: 1px solid rgba(212, 175, 55, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /*[cite: 8] */
 }
 
 .pricing-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 40px rgba(128, 0, 0, 0.15);
-  border-color: var(--secondary-gold);
+  border-color: var(--secondary-gold); /*[cite: 8] */
 }
 
 .pricing-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading); /* Updated */
   font-size: 1.8rem;
   color: var(--primary-maroon);
   margin-bottom: 1rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1px; /*[cite: 8] */
 }
 
 .pricing-card .price {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--secondary-gold);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /*[cite: 8] */
 }
 
 .pricing-card ul {
   list-style: none;
   margin: 2rem 0;
   padding: 0;
-  flex-grow: 1;
+  flex-grow: 1; /*[cite: 8] */
 }
 
 .pricing-card li {
   padding: 0.8rem 0;
   border-bottom: 1px solid rgba(128, 0, 0, 0.1);
   color: var(--text-dark);
-  font-size: 0.95rem;
+  font-size: 0.95rem; /*[cite: 8] */
 }
 
 .pricing-card li:last-child {
-  border-bottom: none;
+  border-bottom: none; /*[cite: 8] */
 }
 
 /* --- Buttons --- */
@@ -128,30 +128,30 @@ body {
   text-decoration: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; /*[cite: 8] */
 }
 
 .btn-outline {
   background-color: transparent;
   color: var(--primary-maroon);
-  border: 2px solid var(--primary-maroon);
+  border: 2px solid var(--primary-maroon); /*[cite: 8] */
 }
 
 .btn-outline:hover {
   background-color: var(--primary-maroon);
-  color: var(--bg-ivory);
+  color: var(--bg-ivory); /*[cite: 8] */
 }
 
 .btn-primary {
   background-color: var(--primary-maroon);
   color: var(--secondary-gold);
-  border: none;
+  border: none; /*[cite: 8] */
 }
 
 .btn-primary:hover {
   background-color: var(--secondary-gold);
   color: var(--primary-maroon);
-  transform: translateY(-2px);
+  transform: translateY(-2px); /*[cite: 8] */
 }
 
 /* --- Highlight the Middle (Gold) Package --- */
@@ -160,31 +160,31 @@ body {
   color: var(--bg-ivory);
   border-color: var(--secondary-gold);
   transform: scale(1.05);
-  box-shadow: 0 15px 30px rgba(128, 0, 0, 0.25);
+  box-shadow: 0 15px 30px rgba(128, 0, 0, 0.25); /*[cite: 8] */
 }
 
 .grid-3 .pricing-card:nth-child(2):hover {
-  transform: scale(1.05) translateY(-10px);
+  transform: scale(1.05) translateY(-10px); /*[cite: 8] */
 }
 
 .grid-3 .pricing-card:nth-child(2) h3,
 .grid-3 .pricing-card:nth-child(2) .price {
-  color: var(--secondary-gold);
+  color: var(--secondary-gold); /*[cite: 8] */
 }
 
 .grid-3 .pricing-card:nth-child(2) li {
   color: var(--bg-ivory);
-  border-bottom-color: rgba(255, 255, 240, 0.15);
+  border-bottom-color: rgba(255, 255, 240, 0.15); /*[cite: 8] */
 }
 
 .grid-3 .pricing-card:nth-child(2) .btn-outline {
   border-color: var(--secondary-gold);
-  color: var(--secondary-gold);
+  color: var(--secondary-gold); /*[cite: 8] */
 }
 
 .grid-3 .pricing-card:nth-child(2) .btn-outline:hover {
   background-color: var(--secondary-gold);
-  color: var(--primary-maroon);
+  color: var(--primary-maroon); /*[cite: 8] */
 }
 
 /* ========================================= */
@@ -197,28 +197,28 @@ body {
   padding: 4rem 2rem;
   background-color: var(--bg-light-ivory);
   border-radius: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.2); /*[cite: 8] */
 }
 
 .custom-quote-section h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading); /* Updated */
   font-size: 2.2rem;
-  color: var(--primary-maroon);
+  color: var(--primary-maroon); /*[cite: 8] */
 }
 
 /* ========================================= */
-/* --- How It Works Section (Now Full Width) --- */
+/* --- How It Works Section --- */
 /* ========================================= */
 .process-section {
   background-color: var(--primary-maroon);
   padding: 6rem 0;
-  margin: 5rem 0; /* Creates space between the packages and FAQs */
+  margin: 5rem 0; /*[cite: 8] */
 }
 
 .process-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
+  gap: 2rem; /*[cite: 8] */
 }
 
 .process-step-card {
@@ -227,33 +227,33 @@ body {
   border-radius: 12px;
   border: 1px solid rgba(212, 175, 55, 0.2);
   text-align: center;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease; /*[cite: 8] */
 }
 
 .process-step-card:hover {
   transform: translateY(-5px);
-  border-color: var(--secondary-gold);
+  border-color: var(--secondary-gold); /*[cite: 8] */
 }
 
 .step-number {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading); /* Updated */
   font-size: 4rem;
   color: var(--secondary-gold);
   opacity: 0.3;
   line-height: 1;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; /*[cite: 8] */
 }
 
 .step-title {
   color: var(--bg-ivory);
   font-size: 1.3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; /*[cite: 8] */
 }
 
 .step-desc {
   color: rgba(255, 255, 240, 0.8);
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.6; /*[cite: 8] */
 }
 
 /* ========================================= */
@@ -261,7 +261,7 @@ body {
 /* ========================================= */
 .faq-section {
   margin-top: 6rem;
-  margin-bottom: 6rem;
+  margin-bottom: 6rem; /*[cite: 8] */
 }
 
 .faq-container {
@@ -269,7 +269,7 @@ body {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem; /*[cite: 8] */
 }
 
 .faq-item {
@@ -277,20 +277,21 @@ body {
   padding: 2rem;
   border-radius: 12px;
   border-left: 4px solid var(--secondary-gold);
-  box-shadow: 0 2px 10px rgba(128, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(128, 0, 0, 0.05); /*[cite: 8] */
 }
 
 .faq-item h4 {
   font-size: 1.2rem;
   color: var(--primary-maroon);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /*[cite: 8] */
 }
 
 .faq-item p {
   margin: 0;
   line-height: 1.6;
-  color: var(--text-dark);
+  color: var(--text-dark); /*[cite: 8] */
 }
+
 /* ========================================= */
 /* --- MOBILE FIXES --- */
 /* ========================================= */
@@ -306,10 +307,10 @@ body {
     font-size: 2.2rem;
   }
   .grid-3, .process-grid {
-    grid-template-columns: 1fr; /* Force single column */
+    grid-template-columns: 1fr; 
   }
   .grid-3 .pricing-card:nth-child(2) {
-    transform: scale(1); /* Stops the Gold package from stretching past the screen edges */
+    transform: scale(1); 
   }
   .grid-3 .pricing-card:nth-child(2):hover {
     transform: translateY(-5px);
@@ -320,4 +321,4 @@ body {
   .custom-quote-section h3 {
     font-size: 1.8rem;
   }
-}
+} /*[cite: 8] */

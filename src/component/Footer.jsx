@@ -55,7 +55,7 @@ const Footer = () => {
         <div className="footer-column brand-column">
           <div className="footer-logo">
             {/* Dynamic Logo */}
-            <Image src={homeData?.logo_url || '/logo.jpeg'} width="200" height="200" alt="Raj Hansh Logo" />
+            <Image src={homeData?.logo_url || '/logo.png'} width="200" height="200" alt="Raj Hansh Logo" />
           </div>
           <p className="brand-tagline">
             We create extraordinary experiences<br />

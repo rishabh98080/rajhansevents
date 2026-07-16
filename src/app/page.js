@@ -53,19 +53,22 @@ export default async function Home() {
         <div className="hero-content">
           <div className="logo-wrapper">
               <Image 
-                src={homeData?.logo_url || "/logo.jpeg"} 
+                src={homeData?.logo_url || "/logo.png"} 
                 alt="logo" 
-                width="100" 
-                height="100"
+                width="150" 
+                height="150"
               />
             </div>
             {/* Dynamic Titles[cite: 6] */}
             <h1>{homeData?.banner_title || "Raj Hansh Event"}</h1>
             <p>{homeData?.banner_text || "Turning milestones into unforgettable memories since 2016."}</p>
           <div>
-            <a href={whatsappUrl} target="_blank" rel="noreferrer" className="btn btn-whatsapp">
-              WhatsApp Us
-            </a>
+       {/* Final CTA */}
+          <section className="cta-section">
+            <div className="container text-center">
+              <CalendlyButton/>
+            </div>
+          </section>
           </div>
         </div>
       </section>
@@ -160,14 +163,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="cta-section">
-        <div className="container text-center">
-          <h2>Ready to plan your next celebration?</h2>
-          <p>Book a free consultation with our team today.</p>
-          <CalendlyButton/>
-        </div>
-      </section>
+
     </main>
   );
 }

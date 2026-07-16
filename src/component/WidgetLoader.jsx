@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 const WhatsAppWidget = dynamic(
-  () => import("@/component/WhatAppWidget"),
+  () => import("@/component/WhatsAppWidget"),
   { ssr: false }
 );
 

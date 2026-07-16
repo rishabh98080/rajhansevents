@@ -6,58 +6,62 @@
   --primary-maroon: #800000;
   --secondary-gold: #D4AF37;
   --bg-ivory: #FFFFF0;
-  --accent-gold: #C5A000; /* Complementary dark gold */
-  --text-dark: #2F0000; /* Deep maroon-black */
+  --accent-gold: #C5A000; 
+  --text-dark: #2F0000; 
   
-  /* Typography */
-  --font-base: 'Inter', sans-serif;
-  --font-heading: 'Cinzel', serif;
+  /* Typography fallback to globals variables */
+  --font-base: var(--font-poppins, sans-serif);
+  --font-heading: var(--font-playfair, serif); /*[cite: 5] */
 }
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /*[cite: 5] */
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--text-main);
+  font-family: var(--font-base); /* Updated to use variables instead of hardcoded strings */
+  color: var(--text-dark);
   background-color: var(--bg-ivory);
-  line-height: 1.6;
+  line-height: 1.6; /*[cite: 5] */
 }
 
 /* --- Layout & Typography --- */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 5rem 2rem;
+  padding: 5rem 2rem; /*[cite: 5] */
 }
 
 .bg-light {
-  background-color: var(--bg-light);
+  background-color: var(--bg-light); /*[cite: 5] */
 }
 
 .text-center {
-  text-align: center;
+  text-align: center; /*[cite: 5] */
 }
 
 .text-muted {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.95rem; /*[cite: 5] */
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 3rem; /*[cite: 5] */
+}
+
+.section-title, h1, h2, h3 {
+  font-family: var(--font-heading); /* Centralized heading fonts */
+  color: var(--primary-maroon);
+  letter-spacing: 0.05em; /*[cite: 5] */
 }
 
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--primary-maroon);
-  margin-bottom: 0.5rem;
-  font-family: 'Playfair Display', serif; /* Adds a classy touch to headings */
+  margin-bottom: 0.5rem; /*[cite: 5] */
 }
 
 /* --- Buttons --- */
@@ -70,29 +74,29 @@ body {
   border-radius: 50px;
   transition: all 0.3s ease;
   cursor: pointer;
-  border: none;
+  border: none; /*[cite: 5] */
 }
 
 .btn-whatsapp {
   background-color: var(--whatsapp-green);
   color: #ffffff;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); /*[cite: 5] */
 }
 
 .btn-whatsapp:hover {
   background-color: var(--whatsapp-hover);
-  transform: translateY(-2px);
+  transform: translateY(-2px); /*[cite: 5] */
 }
 
 .btn-primary {
   background-color: var(--primary-maroon);
-  color: var(--secondary-gold);
+  color: var(--secondary-gold); /*[cite: 5] */
 }
 
 .btn-primary:hover {
   background-color: var(--secondary-gold);
   color: var(--primary-maroon);
-  transform: translateY(-2px);
+  transform: translateY(-2px); /*[cite: 5] */
 }
 
 /* --- Hero Section --- */
@@ -104,7 +108,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  text-align: center;
+  text-align: center; /*[cite: 5] */
 }
 
 .hero-video {
@@ -117,7 +121,7 @@ body {
   height: auto;
   transform: translateX(-50%) translateY(-50%);
   object-fit: cover;
-  z-index: 1;
+  z-index: 1; /*[cite: 5] */
 }
 
 .hero-overlay {
@@ -126,8 +130,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(53, 52, 52, 0.6); /* Maroon tinted overlay */
-  z-index: 2;
+  background: rgba(99, 43, 43, 0.6); 
+  z-index: 2; /*[cite: 5] */
 }
 
 .hero-content {
@@ -135,34 +139,35 @@ body {
   z-index: 3;
   color: var(--bg-ivory);
   max-width: 800px;
-  padding: 0 2rem;
+  padding: 0 2rem; /*[cite: 5] */
 }
 
 .hero-content h1 {
+  font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 800;
   margin-bottom: 1rem;
   letter-spacing: -1px;
-  color: var(--secondary-gold);
+  color: var(--secondary-gold); /*[cite: 5] */
 }
 
 .hero-content p {
   font-size: clamp(1.1rem, 2vw, 1.3rem);
   margin-bottom: 2rem;
-  opacity: 0.9;
+  opacity: 0.9; /*[cite: 5] */
 }
 
 /* --- Grids --- */
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reduced from 300px */
-  gap: 3rem; /* Drastically reduced from 7rem */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 3rem; /*[cite: 5] */
 }
 
 .grid-4 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 3rem; /* Drastically reduced from 20rem */
+  gap: 3rem; /*[cite: 5] */
 }
 
 /* ========================================= */
@@ -177,18 +182,18 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Text at bottom */
+  justify-content: flex-end; 
   text-align: left;
   cursor: pointer;
   box-shadow: 0 10px 20px rgba(128, 0, 0, 0.1);
   border: 2px solid transparent;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease; /*[cite: 5] */
 }
 
 .image-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 35px rgba(128, 0, 0, 0.25);
-  border-color: var(--secondary-gold);
+  border-color: var(--secondary-gold); /*[cite: 5] */
 }
 
 .card-overlay {
@@ -197,38 +202,38 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Dark gradient matching the screenshot to make text readable */
   background: linear-gradient(
     to bottom, 
     rgba(0, 0, 0, 0) 40%, 
     rgba(0, 0, 0, 0.85) 100%
   );
-  z-index: 1;
+  z-index: 1; /*[cite: 5] */
 }
 
 .card-content {
   position: relative;
   z-index: 2;
-  padding: 2rem 1.5rem;
+  padding: 2rem 1.5rem; /*[cite: 5] */
 }
 
 .card-kicker {
   display: block;
+  font-family: var(--font-base); /* Removed cursive */
   color: var(--secondary-gold);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /*[cite: 5] */
 }
 
 .card-title {
   color: #ffffff;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
-  line-height: 1.1;
+  line-height: 1.1; /*[cite: 5] */
 }
 
 /* --- Stats Section --- */
@@ -236,24 +241,25 @@ body {
   background: var(--primary-maroon);
   color: var(--bg-ivory);
   text-align: center;
-  margin-top: 20px;
+  margin-top: 20px; /*[cite: 5] */
 }
 
 .stats-section .container {
-  padding: 4rem 2rem;
+  padding: 4rem 2rem; /*[cite: 5] */
 }
 
 .stat-item h3 {
+  font-family: var(--font-heading);
   font-size: 3rem;
   color: var(--secondary-gold);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /*[cite: 5] */
 }
 
 .stat-item p {
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  opacity: 0.9;
+  opacity: 0.9; /*[cite: 5] */
 }
 
 /* --- Testimonials --- */
@@ -262,18 +268,19 @@ body {
   padding: 2rem;
   border-radius: 12px;
   border-left: 4px solid var(--secondary-gold);
-  box-shadow: 0 5px 15px rgba(128, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(128, 0, 0, 0.05); /*[cite: 5] */
 }
 
 .testimonial-text {
   font-style: italic;
   margin-bottom: 1.5rem;
-  color: var(--text-main);
+  color: var(--text-dark); /*[cite: 5] */
 }
 
 .testimonial-author {
+  font-family: var(--font-heading);
   font-weight: 600;
-  color: var(--primary-maroon);
+  color: var(--primary-maroon); /*[cite: 5] */
 }
 
 /* --- Final CTA --- */
@@ -281,87 +288,36 @@ body {
   padding: 3px;
   border-radius: 10px;
   background-color: var(--bg-light);
-  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  border-top: 1px solid rgba(212, 175, 55, 0.2); /*[cite: 5] */
 }
 
 .cta-section h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--primary-maroon);
+  color: var(--primary-maroon); /*[cite: 5] */
 }
 
 .cta-section p {
   margin-bottom: 2rem;
   font-size: 1.2rem;
-  color: var(--text-muted);
+  color: var(--text-muted); /*[cite: 5] */
 }
+
 /* ========================================= */
 /* --- MOBILE FIXES --- */
 /* ========================================= */
 @media (max-width: 768px) {
   .container {
-    padding: 3rem 1.5rem; /* Prevents edge-to-edge overflow */
+    padding: 3rem 1.5rem; 
   }
   .section-title {
-    font-size: 2.2rem;
+    font-size: 2.2rem; /*[cite: 5] */
   }
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.5rem; /*[cite: 5] */
   }
   .grid-3, .grid-4 {
-    grid-template-columns: 1fr; /* Forces 1 column on iPhone */
-    gap: 2rem;
+    grid-template-columns: 1fr; 
+    gap: 2rem; /*[cite: 5] */
   }
-}
-/* --- Structure & Theme --- */
-body {
-  background-color: var(--bg-ivory);
-  color: var(--text-dark);
-  font-family: var(--font-base);
-}
-
-.section-title, h1, h2, h3 {
-  font-family: var(--font-heading);
-  color: var(--primary-maroon);
-  letter-spacing: 0.05em;
-}
-
-/* --- Hero Section --- */
-.hero-content h1 {
-  font-family: var(--font-heading);
-  color: var(--secondary-gold);
-}
-
-/* --- Cards & Accents --- */
-.card-kicker {
-  display: block;
-  font-family: var(--font-base); /* Removed cursive */
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--secondary-gold);
-  letter-spacing: 2px;
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.card-title {
-  color: #ffffff;
-  font-family: var(--font-heading);
-  font-size: 2rem;
-}
-
-/* --- Stats & Testimonials --- */
-.stat-item h3 {
-  font-family: var(--font-heading);
-  color: var(--secondary-gold);
-}
-
-.testimonial-author {
-  font-family: var(--font-heading);
-  color: var(--primary-maroon);
-}
-
-/* --- Interactive States --- */
-.image-card:hover {
-  border-color: var(--secondary-gold);
 }
