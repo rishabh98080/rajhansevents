@@ -67,6 +67,7 @@
 .image-stack {
   position: relative;
   height: 600px;
+  max-width: 500px;
   border: 2px solid var(--secondary-gold);
 }
 

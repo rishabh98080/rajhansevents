@@ -1,4 +1,4 @@
-import { supabase } from "@/app/api/supabaseClient";
+import { supabase } from "../app/api/supabaseClient";
 
 export const uploadImage = async (file, bucket) => {
   if (!file) return null;
@@ -21,3 +21,4 @@ export const uploadImage = async (file, bucket) => {
 
   return publicURL.publicUrl;
 };
+//experiences,expertise,featured,portfolio,smiles,team

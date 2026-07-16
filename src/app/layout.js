@@ -1,7 +1,7 @@
 import { Inter, Cinzel, Pinyon_Script } from 'next/font/google';
 import Navbar from '@/component/Navbar';
 import Footer from '@/component/Footer';
-import WhatsAppWidget from '@/component/WhatAppWidget'; 
+import WhatsAppWidget from '@/component/WidgetLoader'; 
 
 // Define the fonts
 const inter = Inter({ 

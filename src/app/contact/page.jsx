@@ -132,7 +132,7 @@ ${form.message}`;
         <div className="contact-visuals">
           <div className="image-stack">
             <img loading="lazy"
-              src="/birthday.jpeg"
+              src="https://uvoapeploerjdonrrbtp.supabase.co/storage/v1/object/sign/Data/CFW05290.JPG.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mY2M5Y2UyMS0zZTFlLTRlMDQtYTlkYy0yNzVjNjFmNjkyY2EiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJEYXRhL0NGVzA1MjkwLkpQRy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NDE4MzcwOCwiZXhwIjoxODE1NzE5NzA4fQ.fgQW9WfHuqp4CqcDHFLQ5uZ4bhdgtM773fO__XhWm2Y"
               alt="Rajhans Events"
               className="main-img"
             />

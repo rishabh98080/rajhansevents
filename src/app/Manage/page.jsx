@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { supabase } from '../api/supabaseClient';
 import { uploadImage } from '../../utils/supabaseUpload';
 import styles from './Manage.module.css';
+import imageCompression from 'browser-image-compression';
 
 export default function ManagePage() {
   const [loading, setLoading] = useState(false);
@@ -22,25 +23,66 @@ export default function ManagePage() {
   const [experienceData, setExperienceData] = useState({ identifier: '', title: '', file: null });
   const [smileData, setSmileData] = useState({ identifier: '', file: null });
 
-  // Universal Submit Handler
+  // Compression helper with 'isThumbnail' flag
+  const compressImage = async (file, isThumbnail = false) => {
+    // Skip videos or non-images entirely
+    if (!file || !file.type.startsWith('image/')) {
+      return file;
+    }
+
+    const options = {
+      maxSizeMB: isThumbnail ? 0.1 : 1, // 100KB for thumbnails, 1MB for standard
+      maxWidthOrHeight: isThumbnail ? 600 : 1920,
+      useWebWorker: true,
+    };
+
+    try {
+      const compressedBlob = await imageCompression(file, options);
+      const fileName = isThumbnail ? `thumb_${file.name}` : file.name;
+      return new File([compressedBlob], fileName, { type: file.type, lastModified: Date.now() });
+    } catch (error) {
+      console.error('Error compressing image:', error);
+      return file;
+    }
+  };
+
+  // Universal Submit Handler with dynamic routing for dual-uploads
   const handleSubmit = async (e, table, payload, fileData = null, secondaryFileData = null) => {
     e.preventDefault();
     setLoading(true);
 
     try {
       let finalPayload = { ...payload };
+      
+      // The tables where we added the 'thumbnail_url' column
+      const dualUploadTables = ['experiences', 'expertise', 'featured', 'portfolio', 'smiles', 'team'];
 
-      // Handle primary file upload
-      if (fileData && fileData.file) {
-        const fileUrl = await uploadImage(fileData.file, fileData.bucket);
-        finalPayload[fileData.columnName] = fileUrl;
-      }
+      const processFileUpload = async (fileInfo) => {
+        if (!fileInfo || !fileInfo.file) return;
 
-      // Handle secondary file upload (e.g., Logo AND Video on the home page)
-      if (secondaryFileData && secondaryFileData.file) {
-        const fileUrl = await uploadImage(secondaryFileData.file, secondaryFileData.bucket);
-        finalPayload[secondaryFileData.columnName] = fileUrl;
-      }
+        // If it's one of our dual-upload tables AND it's an image
+        if (dualUploadTables.includes(table) && fileInfo.file.type.startsWith('image/')) {
+          
+          const highResFile = await compressImage(fileInfo.file, false);
+          const thumbnailFile = await compressImage(fileInfo.file, true);
+
+          const highResUrl = await uploadImage(highResFile, fileInfo.bucket);
+          const thumbnailUrl = await uploadImage(thumbnailFile, fileInfo.bucket);
+
+          finalPayload[fileInfo.columnName] = highResUrl;
+          finalPayload['thumbnail_url'] = thumbnailUrl; 
+
+        } else {
+          // Standard upload: aggressively compress everything else (videos bypass this automatically inside compressImage)
+          const processedFile = await compressImage(fileInfo.file, true);
+          const fileUrl = await uploadImage(processedFile, fileInfo.bucket);
+          finalPayload[fileInfo.columnName] = fileUrl;
+        }
+      };
+
+      // Process primary and secondary files using the logic above
+      await processFileUpload(fileData);
+      await processFileUpload(secondaryFileData);
 
       const { error } = await supabase.from(table).upsert(finalPayload, { onConflict: 'identifier' });
 
@@ -143,14 +185,13 @@ export default function ManagePage() {
         </form>
       </section>
 
-{/* PORTFOLIO */}
+      {/* PORTFOLIO */}
       <section className={styles.section}>
         <h2>Portfolio (Upload One by One)</h2>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'portfolio', { identifier: portfolioData.identifier, category: portfolioData.category, media_type: portfolioData.media_type }, { file: portfolioData.file, bucket: 'portfolio', columnName: 'media_url' })}>
+        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'portfolio', { identifier: portfolioData.identifier, category: portfolioData.category, media_type: portfolioData.media_type,title: portfolioData.title }, { file: portfolioData.file, bucket: 'portfolio', columnName: 'media_url' })}>
           <input type="text" placeholder="Identifier (e.g., port-1)" required onChange={e => setPortfolioData({...portfolioData, identifier: e.target.value})} />
           <input type="text" placeholder="Title of the image" required onChange={e => setPortfolioData({...portfolioData, title: e.target.value})} />
           
-          {/* FIX APPLIED HERE: Added defaultValue="" and removed selected from the option */}
           <select required defaultValue="" onChange={e => setPortfolioData({...portfolioData, category: e.target.value})}>
             <option value="" disabled>Select Category</option>
             <option value="wedding-planning">Wedding Planning</option>
@@ -163,7 +204,6 @@ export default function ManagePage() {
             <option value="photography-films">Photography & Films</option>
           </select>
           
-          {/* FIX APPLIED HERE ALSO: Added defaultValue="image" */}
           <select required defaultValue="image" onChange={e => setPortfolioData({...portfolioData, media_type: e.target.value})}>
             <option value="image">Image</option>
             <option value="video">Video</option>
@@ -189,8 +229,8 @@ export default function ManagePage() {
         <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'experiences', { identifier: experienceData.identifier, title: experienceData.title }, { file: experienceData.file, bucket: 'testimonials', columnName: 'video_url' })}>
           <input type="text" placeholder="Identifier" required onChange={e => setExperienceData({...experienceData, identifier: e.target.value})} />
           <input type="text" placeholder="Title" required onChange={e => setExperienceData({...experienceData, title: e.target.value})} />
-          <input type="file" accept="video/*" required onChange={e => setExperienceData({...experienceData, file: e.target.files[0]})} />
-          <button type="submit" disabled={loading}>Save Experience Video</button>
+          <input type="file" accept="video/*, image/*" required onChange={e => setExperienceData({...experienceData, file: e.target.files[0]})} />
+          <button type="submit" disabled={loading}>Save Experience Media</button>
         </form>
 
         <h3>Smiles We Created</h3>

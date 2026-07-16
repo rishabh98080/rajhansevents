@@ -10,7 +10,7 @@ export default function Portfolio() {
   const [categories, setCategories] = useState(['All']);
   const [loading, setLoading] = useState(true);
   
-  // NEW: State to track the currently selected media for the modal
+  // State to track the currently selected media for the modal
   const [selectedMedia, setSelectedMedia] = useState(null);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Portfolio() {
     ? displayProjects 
     : displayProjects.filter(p => p.category === activeFilter);
 
-  // NEW: Function to close the modal
+  // Function to close the modal
   const closeModal = () => setSelectedMedia(null);
 
   return (
@@ -84,13 +84,12 @@ export default function Portfolio() {
             <div 
               key={project.identifier || project.id} 
               className="portfolio-card"
-              // NEW: Add click handler to set the active media
               onClick={() => setSelectedMedia(project)}
             >
               {project.media_type === 'video' ? (
-                <video src={project.media_url} className="portfolio-media" controls muted playsInline />
+                <video src={project.thumbnail_url || project.media_url} className="portfolio-media" controls muted playsInline />
               ) : (
-                <img loading='lazy' src={project.media_url} alt={project.title || project.identifier} className="portfolio-media" />
+                <img loading='lazy' src={project.thumbnail_url || project.media_url} alt={project.title || project.identifier} className="portfolio-media" />
               )}
               
               <div className="portfolio-overlay">
@@ -104,7 +103,7 @@ export default function Portfolio() {
         )}
       </div>
 
-      {/* NEW: Fullscreen Image/Video Modal */}
+      {/* Fullscreen Image/Video Modal */}
       {selectedMedia && (
         <div className="image-modal" onClick={closeModal}>
           <button className="close-modal" onClick={closeModal}>&times;</button>
@@ -123,7 +122,6 @@ export default function Portfolio() {
                 src={selectedMedia.media_url} 
                 alt={selectedMedia.title || "Enlarged view"} 
                 className="modal-image" 
-                // Closes the modal if they click the image itself for a smooth UX
                 onClick={closeModal} 
               />
             )}
