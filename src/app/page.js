@@ -48,7 +48,7 @@ export default async function Home() {
         <div className="hero-overlay"></div>
         {/* Dynamic Video Banner[cite: 6] */}
         <video autoPlay loop muted playsInline className="hero-video">
-          <source src={homeData?.banner_video_url || '/hero.mp4'} type="video/mp4" />
+          <source src={homeData?.banner_video_url} type="video/mp4" />
         </video>
         <div className="hero-content">
           <div className="logo-wrapper">
