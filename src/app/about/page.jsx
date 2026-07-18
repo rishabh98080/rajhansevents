@@ -127,7 +127,10 @@ export default async function About() {
         </div>
         
         <div className="team-grid">
-          {teamMembers && teamMembers.length > 0 ? (
+          {console.log('Team Members Data:', teamMembers)}
+
+          {
+          teamMembers && teamMembers.length > 0 ? (
             teamMembers.map(member => (
               <div key={member.identifier} className="team-card squarish-card">
                 <div className="team-img-wrapper">
