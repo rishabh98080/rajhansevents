@@ -45,10 +45,10 @@ export default function RootLayout({ children }) {
       className={`${playfair.variable} ${cormorant.variable} ${nunito.variable} ${poppins.variable}`}
     >
       <body>
-        <Navbar /> {/*[cite: 3] */}
+        <Navbar /> 
         <main>{children}</main> {/* Ensures content is wrapped correctly[cite: 3] */}
-        <Footer /> {/*[cite: 3] */}
-        <WhatsAppWidget /> {/*[cite: 3] */}
+        <Footer /> 
+        <WhatsAppWidget /> 
       </body>
     </html>
   );

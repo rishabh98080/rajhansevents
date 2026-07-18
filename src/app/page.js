@@ -1,7 +1,10 @@
 import { supabase } from '@/app/api/supabaseClient';
 import CalendlyButton from '@/app/calendly/calendly';
+import AboutUs from '@/app/about/page';
+import Services from '@/app/services/page';
+
 import Image from 'next/image';
-import './Home.css'; 
+import './Home.css';
 
 export const metadata = {
   title: "Raj Hansh",
@@ -9,9 +12,10 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const botNumber = "919876543210"; 
+  const botNumber = "919876543210";
   const prefilledMessage = encodeURI("Hi there! I'd like to know more about your services.");
   const whatsappUrl = `https://wa.me/${botNumber}?text=${prefilledMessage}`;
+  
   // Fetch all necessary data from Supabase in parallel
   const [
     { data: homeData },
@@ -25,7 +29,7 @@ export default async function Home() {
     supabase.from('testimonials').select('*').order('created_at', { ascending: true })
   ]);
 
-  // Fallbacks in case the database is empty[cite: 6]
+  // Fallbacks in case the database is empty
   const fallbackExpertise = [
     { title: 'Wedding Planning', image_url: "/wedding.jpeg" },
     { title: 'Birthday & Anniversary', image_url: "/birthday.jpeg" },
@@ -46,24 +50,28 @@ export default async function Home() {
       {/* Premium Hero Section */}
       <section className="hero">
         <div className="hero-overlay"></div>
-        {/* Dynamic Video Banner[cite: 6] */}
+        
+        {/* Dynamic Video Banner */}
         <video autoPlay loop muted playsInline className="hero-video">
           <source src={homeData?.banner_video_url} type="video/mp4" />
         </video>
+        
         <div className="hero-content">
           <div className="logo-wrapper">
               <Image 
-                src={homeData?.logo_url || "/logo.png"} 
+                src={"/vblogo.png"} 
                 alt="logo" 
                 width="150" 
                 height="150"
               />
             </div>
-            {/* Dynamic Titles[cite: 6] */}
+            
+            {/* Dynamic Titles */}
             <h1>{homeData?.banner_title || "Raj Hansh Event"}</h1>
             <p>{homeData?.banner_text || "Turning milestones into unforgettable memories since 2016."}</p>
           <div>
-       {/* Final CTA */}
+            
+          {/* Final CTA */}
           <section className="cta-section">
             <div className="container text-center">
               <CalendlyButton/>
@@ -73,12 +81,35 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Elegant Stats Band */}
+      <section className="elegant-stats-band">
+        <div className="container stats-flex-container">
+          <div className="elegant-stat-item">
+            <h3>850+</h3>
+            <p>EVENTS CURATED</p>
+          </div>
+          <div className="elegant-stat-item">
+            <h3>220+</h3>
+            <p>WEDDINGS DELIVERED</p>
+          </div>
+          <div className="elegant-stat-item">
+            <h3>60+</h3>
+            <p>CORPORATE CLIENTS</p>
+          </div>
+          <div className="elegant-stat-item">
+            <h3>9</h3>
+            <p>YEARS OF CRAFT</p>
+          </div>
+        </div>
+      </section>
+
       {/* Services/Expertise Section */}
       <section className="container bg-light" id="services">
-        <div className="section-header">
-          <h2 className="section-title">Our Expertise</h2>
-          <p className="text-muted">End-to-end event planning, tailored to your vision.</p>
+        <div className="elegant-section-header">
+          <span className="section-kicker">— OUR EXPERTISE</span>
+          <h2 className="elegant-section-title">End-to-end event planning, tailored to your vision.</h2>
         </div>
+        
         <div className="grid-3">
           {displayExpertise.map((item, index) => (
             <div key={item.identifier || index} className="image-card" style={{ backgroundImage: `url("${item.image_url}")` }}>
@@ -94,10 +125,11 @@ export default async function Home() {
 
       {/* Featured Events */}
       <section className="container">
-        <div className="section-header">
-          <h2 className="section-title">Featured Events</h2>
-          <p className="text-muted">A glimpse into the magic we create.</p>
+        <div className="elegant-section-header">
+          <span className="section-kicker">— FEATURED EVENTS</span>
+          <h2 className="elegant-section-title">A glimpse into the magic we create.</h2>
         </div>
+        
         <div className="grid-3">
           {displayFeatured.map((event, index) => (
             <div key={event.identifier || index} className="image-card" style={{ backgroundImage: `url("${event.image_url}")` }}>
@@ -111,31 +143,13 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Stats/Awards */}
-      <section className="stats-section">
-        <div className="container">
-          <div className="grid-3">
-            <div className="stat-item">
-              <h3>{homeData?.founded || "2016"}</h3>
-              <p>Founded</p>
-            </div>
-            <div className="stat-item">
-              <h3>1-on-1</h3>
-              <p>Founder-Led Service</p>
-            </div>
-            <div className="stat-item">
-              <h3>100%</h3>
-              <p>Dedicated Attention</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials Section */}
       <section className="container bg-light">
-        <div className="section-header">
-          <h2 className="section-title">Words of Love</h2>
+        <div className="elegant-section-header">
+          <span className="section-kicker">— WORDS OF LOVE</span>
+          <h2 className="elegant-section-title">Stories from our cherished clients.</h2>
         </div>
+        
         <div className="grid-3">
           {testimonials && testimonials.length > 0 ? (
             testimonials.slice(0, 3).map((testimonial) => (
@@ -148,7 +162,7 @@ export default async function Home() {
               </div>
             ))
           ) : (
-            /* Fallback Testimonials[cite: 6] */
+            /* Fallback Testimonials */
             [
               { name: "Aisha & Rahul", text: "They made our wedding an absolute fairytale. Every detail was perfect!" },
               { name: "TechCorp India", text: "The annual gala was seamless. Highly professional team." },
@@ -162,7 +176,6 @@ export default async function Home() {
           )}
         </div>
       </section>
-
 
     </main>
   );
