@@ -7,6 +7,7 @@ import {
 import { lazy, Suspense } from "react";
 import Navbar from '@/component/Navbar';
 import Footer from '@/component/Footer';
+import AutoLogout from '@/app/admin/AutoLogout';
 
 // --- HEADING FONTS ---
 const playfair = Playfair_Display({ 
@@ -55,6 +56,7 @@ export default function RootLayout({ children }) {
         <Suspense fallback={null}>
           <ChatWidget />
         </Suspense>
+        <AutoLogout />
       </body>
     </html>
   );
