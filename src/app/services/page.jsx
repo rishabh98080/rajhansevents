@@ -85,6 +85,9 @@ export default async function Services() {
           </div>
         </div>
       </section>
+      <section className="brochure-section" style = {{textAlign: 'center', margin: '40px 0'}}>
+        <a href="/brochure.pdf" download>Download Brochure</a>
+      </section>
     </main>
   );
 }

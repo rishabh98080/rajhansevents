@@ -1,56 +1,69 @@
+/* ==========================================================================
+   Manage Page Styles
+   ========================================================================== */
+
 .manageContainer {
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  max-width: 800px;
+  max-width: 900px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 25px;
   color: #333;
+  background-color: #f4f7f6;
+  border-radius: 12px;
 }
 
 .manageContainer h1 {
   text-align: center;
-  margin-bottom: 30px;
-  color: #222;
+  margin-bottom: 40px;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* --- Section Layouts --- */
 .section {
-  border: 1px solid #ccc;
-  padding: 25px;
+  border: 1px solid #e0e0e0;
+  padding: 30px;
   margin-bottom: 30px;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .section h2 {
-  border-bottom: 2px solid #333;
-  padding-bottom: 10px;
+  border-left: 5px solid #007bff;
+  padding-left: 15px;
   margin-top: 0;
-  color: #111;
+  margin-bottom: 25px;
+  color: #2c3e50;
 }
 
 .section h3 {
-  margin-top: 25px;
-  color: #444;
+  margin-top: 30px;
+  color: #555;
   font-size: 1.1rem;
+  text-decoration: underline;
+  text-underline-offset: 6px;
 }
 
 .group {
-  margin-bottom: 20px;
-  padding: 15px;
-  background: #f9f9f9;
-  border-left: 4px solid #007bff;
-  border-radius: 0 6px 6px 0;
+  margin: 20px 0;
+  padding: 20px;
+  background: #fcfcfc;
+  border: 1px solid #eee;
+  border-radius: 8px;
 }
 
+/* --- Form Elements & Labels --- */
 .manageContainer label {
   display: block;
   margin-top: 15px;
-  font-weight: bold;
-  color: #555;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.9rem;
 }
 
-/* Target all form inputs inside the container */
 .manageContainer input[type="text"],
 .manageContainer input[type="email"],
 .manageContainer input[type="tel"],
@@ -59,14 +72,12 @@
 .manageContainer select,
 .manageContainer textarea {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 14px;
+  padding: 12px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .manageContainer textarea {
@@ -74,36 +85,41 @@
   min-height: 80px;
 }
 
-/* Give inputs a nice focus outline */
+/* --- Interactive States --- */
 .manageContainer input:focus,
 .manageContainer select:focus,
 .manageContainer textarea:focus {
   outline: none;
   border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
 }
 
 .manageContainer button {
   background: #007bff;
   color: white;
-  padding: 12px 20px;
+  padding: 14px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   width: 100%;
-  margin-top: 10px;
-  transition: background-color 0.2s ease-in-out;
+  margin-top: 15px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.manageContainer button:hover {
+.manageContainer button:hover:not(:disabled) {
   background: #0056b3;
+}
+
+.manageContainer button:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .manageContainer button:disabled {
   background: #a0c4eb;
   cursor: not-allowed;
+  opacity: 0.8;
 }
 
 .manageContainer hr {

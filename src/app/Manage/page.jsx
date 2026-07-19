@@ -25,7 +25,6 @@ export default function ManagePage() {
 
   // Compression helper with 'isThumbnail' flag
   const compressImage = async (file, isThumbnail = false) => {
-    // Skip videos or non-images entirely
     if (!file || !file.type.startsWith('image/')) {
       return file;
     }
@@ -46,41 +45,41 @@ export default function ManagePage() {
     }
   };
 
-  // Universal Submit Handler with dynamic routing for dual-uploads
+  // Universal Submit Handler
   const handleSubmit = async (e, table, payload, fileData = null, secondaryFileData = null) => {
     e.preventDefault();
     setLoading(true);
 
     try {
       let finalPayload = { ...payload };
-      
-      // The tables where we added the 'thumbnail_url' column
-      const dualUploadTables = ['experiences', 'expertise', 'featured', 'portfolio', 'smiles', 'team'];
 
       const processFileUpload = async (fileInfo) => {
         if (!fileInfo || !fileInfo.file) return;
 
-        // If it's one of our dual-upload tables AND it's an image
-        if (dualUploadTables.includes(table) && fileInfo.file.type.startsWith('image/')) {
-          
-          const highResFile = await compressImage(fileInfo.file, false);
+        // Portfolio Logic: Keep Original for media_url, Compress for thumbnail_url
+        if (table === 'portfolio' && fileInfo.file.type.startsWith('image/')) {
+          const originalFile = fileInfo.file; 
           const thumbnailFile = await compressImage(fileInfo.file, true);
 
-          const highResUrl = await uploadImage(highResFile, fileInfo.bucket);
+          const originalUrl = await uploadImage(originalFile, fileInfo.bucket);
           const thumbnailUrl = await uploadImage(thumbnailFile, fileInfo.bucket);
 
-          finalPayload[fileInfo.columnName] = highResUrl;
-          finalPayload['thumbnail_url'] = thumbnailUrl; 
-
-        } else {
-          // Standard upload: aggressively compress everything else (videos bypass this automatically inside compressImage)
-          const processedFile = await compressImage(fileInfo.file, true);
-          const fileUrl = await uploadImage(processedFile, fileInfo.bucket);
+          finalPayload[fileInfo.columnName] = originalUrl;
+          finalPayload['thumbnail_url'] = thumbnailUrl;
+        } 
+        // Standard Logic: Compress all other images
+        else if (fileInfo.file.type.startsWith('image/')) {
+          const compressedFile = await compressImage(fileInfo.file, true);
+          const fileUrl = await uploadImage(compressedFile, fileInfo.bucket);
+          finalPayload[fileInfo.columnName] = fileUrl;
+        } 
+        // Videos: Upload as is
+        else {
+          const fileUrl = await uploadImage(fileInfo.file, fileInfo.bucket);
           finalPayload[fileInfo.columnName] = fileUrl;
         }
       };
 
-      // Process primary and secondary files using the logic above
       await processFileUpload(fileData);
       await processFileUpload(secondaryFileData);
 
@@ -99,7 +98,6 @@ export default function ManagePage() {
     <div className={styles.manageContainer}>
       <h1>Website Content Manager</h1>
 
-      {/* HOME PAGE */}
       <section className={styles.section}>
         <h2>Home Page Main</h2>
         <form onSubmit={(e) => handleSubmit(
@@ -110,8 +108,8 @@ export default function ManagePage() {
         )}>
           <label>Logo</label>
           <input type="file" accept="image/*" onChange={e => setHomeData({...homeData, logo: e.target.files[0]})} />
-          <label>Video Banner</label>
-          <input type="file" accept="video/*" onChange={e => setHomeData({...homeData, banner_video: e.target.files[0]})} />
+          <label>Banner Media (Video/Image)</label>
+          <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, banner_video: e.target.files[0]})} />
           <input type="text" placeholder="Title on Banner" onChange={e => setHomeData({...homeData, banner_title: e.target.value})} />
           <textarea placeholder="Text under Title" onChange={e => setHomeData({...homeData, banner_text: e.target.value})} />
           <input type="text" placeholder="Founded Date/Text" onChange={e => setHomeData({...homeData, founded: e.target.value})} />
@@ -145,7 +143,6 @@ export default function ManagePage() {
         </form>
       </section>
 
-      {/* ABOUT US */}
       <section className={styles.section}>
         <h2>About Us</h2>
         <form onSubmit={(e) => handleSubmit(e, 'about_us', { identifier: aboutData.identifier, description: aboutData.description })}>
@@ -170,7 +167,6 @@ export default function ManagePage() {
         </form>
       </section>
 
-      {/* PACKAGES */}
       <section className={styles.section}>
         <h2>Packages</h2>
         <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'packages', { identifier: packageData.identifier, pkg_name: packageData.pkg_name, f1: packageData.f1, f2: packageData.f2, f3: packageData.f3, f4: packageData.f4, price: packageData.price })}>
@@ -185,7 +181,6 @@ export default function ManagePage() {
         </form>
       </section>
 
-      {/* PORTFOLIO */}
       <section className={styles.section}>
         <h2>Portfolio (Upload One by One)</h2>
         <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'portfolio', { identifier: portfolioData.identifier, category: portfolioData.category, media_type: portfolioData.media_type,title: portfolioData.title }, { file: portfolioData.file, bucket: 'portfolio', columnName: 'media_url' })}>
@@ -214,7 +209,6 @@ export default function ManagePage() {
         </form>
       </section>
 
-      {/* TESTIMONIALS & EXPERIENCES */}
       <section className={styles.section}>
         <h2>Testimonials</h2>
         <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'testimonials', { identifier: testimonialData.identifier, name: testimonialData.name, comment: testimonialData.comment, stars: testimonialData.stars })}>

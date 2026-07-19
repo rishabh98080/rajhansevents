@@ -55,7 +55,7 @@ const Footer = () => {
         <div className="footer-column brand-column">
           <div className="footer-logo">
             {/* Dynamic Logo */}
-            <Image src={homeData?.logo_url || '/logo.png'} width="200" height="200" alt="Raj Hansh Logo" />
+            <Image src={homeData?.logo_url || '/logo.png'} width="200" height="200" alt="Raj Hansh Logo" fetchPriority="high" loading = 'eager'/>
           </div>
           <p className="brand-tagline">
             We create extraordinary experiences<br />
@@ -65,9 +65,9 @@ const Footer = () => {
             {contactData?.fb && <a href={contactData.fb} target="_blank" rel="noreferrer">f</a>}
             {contactData?.insta && <a href={contactData.insta} target="_blank" rel="noreferrer">in</a>}
             {/* Keep placeholders if you want them, or map them to future DB columns */}
-            <a href="#tw">t</a>
-            <a href="#pi">p</a>
-            <a href="#go">g</a>
+            <a href="#tw"><img src = "https://cdn-icons-png.flaticon.com/128/5968/5968958.png" width = {15}/></a>
+            <a href="#pi"><img src = "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/facebook-square-black-icon.png" width = {20}/></a>
+            <a href="#go"><img src = "https://cdn-icons-png.flaticon.com/128/1384/1384031.png" width = {20}/></a>
           </div>
         </div>
 

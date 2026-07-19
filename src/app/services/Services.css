@@ -243,7 +243,18 @@
   opacity: 0.9; 
   line-height: 1.6; 
 }
-
+.brochure-section a {
+  font-family: var(--font-base), serif;
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  background-color: var(--primary-maroon);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
 /* ========================================= */
 /* --- MOBILE FIXES --- */
 /* ========================================= */

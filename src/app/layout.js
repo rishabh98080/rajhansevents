@@ -4,9 +4,9 @@ import {
   Nunito_Sans, 
   Poppins 
 } from 'next/font/google';
+import { lazy, Suspense } from "react";
 import Navbar from '@/component/Navbar';
 import Footer from '@/component/Footer';
-import WhatsAppWidget from '@/component/WidgetLoader'; 
 
 // --- HEADING FONTS ---
 const playfair = Playfair_Display({ 
@@ -37,8 +37,9 @@ export const metadata = {
   title: "Raj Hansh",
   description: "Professional wedding, birthday, and corporate event planning in Ranchi.", //[cite: 3]
 };
-
+const ChatWidget = lazy(() => import('@/component/WhatsAppWidget'));
 export default function RootLayout({ children }) {
+  
   return (
     <html 
       lang="en" 
@@ -48,7 +49,12 @@ export default function RootLayout({ children }) {
         <Navbar /> 
         <main>{children}</main> {/* Ensures content is wrapped correctly[cite: 3] */}
         <Footer /> 
-        <WhatsAppWidget /> 
+
+        
+
+        <Suspense fallback={null}>
+          <ChatWidget />
+        </Suspense>
       </body>
     </html>
   );

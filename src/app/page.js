@@ -1,9 +1,6 @@
 import { supabase } from '@/app/api/supabaseClient';
-import CalendlyButton from '@/app/calendly/calendly';
-import AboutUs from '@/app/about/page';
-import Services from '@/app/services/page';
+import HeroSlider from '@/app/HeroSlider'; // Import your new client component!
 
-import Image from 'next/image';
 import './Home.css';
 
 export const metadata = {
@@ -47,39 +44,9 @@ export default async function Home() {
 
   return (
     <main className="home-page">
-      {/* Premium Hero Section */}
-      <section className="hero">
-        <div className="hero-overlay"></div>
-        
-        {/* Dynamic Video Banner */}
-        <video autoPlay loop muted playsInline className="hero-video">
-          <source src={homeData?.banner_video_url} type="video/mp4" />
-        </video>
-        
-        <div className="hero-content">
-          <div className="logo-wrapper">
-              <Image 
-                src={"/vblogo.png"} 
-                alt="logo" 
-                width="150" 
-                height="150"
-              />
-            </div>
-            
-            {/* Dynamic Titles */}
-            <h1>{homeData?.banner_title || "Raj Hansh Event"}</h1>
-            <p>{homeData?.banner_text || "Turning milestones into unforgettable memories since 2016."}</p>
-          <div>
-            
-          {/* Final CTA */}
-          <section className="cta-section">
-            <div className="container text-center">
-              <CalendlyButton/>
-            </div>
-          </section>
-          </div>
-        </div>
-      </section>
+      
+      {/* Premium Hero Section with Slideshow Component */}
+      <HeroSlider homeData={homeData} />
 
       {/* Elegant Stats Band */}
       <section className="elegant-stats-band">
