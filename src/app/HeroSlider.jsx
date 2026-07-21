@@ -10,16 +10,16 @@ export default function HeroSlider({ homeData }) {
   // Define your slides here (mix of videos and images)
   const slides = [
     { type: 'video', src: homeData?.banner_video_url },
-    { type: 'image', src: '/wedding.jpeg' },
-    { type: 'image', src: '/recept.jpeg' },
-    { type: 'image', src: '/birthday.jpeg' }
+    { type: 'image', src: '/Birthday.jpeg' },
+    { type: 'image', src: '/Birthday.jpeg' },
+    { type: 'image', src: '/Birthday.jpeg' }
   ];
 
   // Automatic slide effect
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 6000); // Changes slide every 6 seconds
+    }, 500); // Changes slide every 6 seconds
     
     return () => clearInterval(timer);
   }, [slides.length]);
