@@ -10,10 +10,10 @@ const nextConfig = {
   reactCompiler: true,
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "uvoapeploerjdonrrbtp.supabase.co",
-      },
+      { protocol: 'https', hostname: 'uvoapeploerjdonrrbtp.supabase.co' },
+      { protocol: 'https', hostname: 'images.pexels.com' },
+      { protocol: 'https', hostname: 'cdn-icons-png.flaticon.com' },
+      { protocol: 'https', hostname: 'uxwing.com' }
     ],
   },
 };

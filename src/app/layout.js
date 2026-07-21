@@ -54,7 +54,7 @@ export default function RootLayout({ children }) {
         
 
         <Suspense fallback={null}>
-          <ChatWidget />
+          <ChatWidget aria-label="Chat with us on WhatsApp"/>
         </Suspense>
         <AutoLogout />
       </body>

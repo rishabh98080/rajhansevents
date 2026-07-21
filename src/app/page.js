@@ -1,5 +1,6 @@
 import { supabase } from '@/app/api/supabaseClient';
 import HeroSlider from '@/app/HeroSlider'; // Import your new client component!
+import Image from 'next/image'; // Added Next.js Image component
 
 import './Home.css';
 
@@ -79,9 +80,17 @@ export default async function Home() {
         
         <div className="grid-3">
           {displayExpertise.map((item, index) => (
-            <div key={item.identifier || index} className="image-card" style={{ backgroundImage: `url("${item.image_url}")` }}>
-              <div className="card-overlay"></div>
-              <div className="card-content">
+            <div key={item.identifier || index} className="image-card relative overflow-hidden">
+              {/* Removed inline style backgroundImage and replaced with Next.js Image */}
+              <Image 
+                src={item.image_url} 
+                alt={item.title || "Our Expertise"} 
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+              <div className="card-overlay relative z-10"></div>
+              <div className="card-content relative z-10">
                 <span className="card-kicker">Explore Our Services</span>
                 <h3 className="card-title">{item.title}</h3>
               </div>
@@ -99,9 +108,17 @@ export default async function Home() {
         
         <div className="grid-3">
           {displayFeatured.map((event, index) => (
-            <div key={event.identifier || index} className="image-card" style={{ backgroundImage: `url("${event.image_url}")` }}>
-              <div className="card-overlay"></div>
-              <div className="card-content">
+            <div key={event.identifier || index} className="image-card relative overflow-hidden">
+              {/* Removed inline style backgroundImage and replaced with Next.js Image */}
+              <Image 
+                src={event.image_url} 
+                alt={event.title || "Featured Event"} 
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+              <div className="card-overlay relative z-10"></div>
+              <div className="card-content relative z-10">
                 <span className="card-kicker">Ranchi, Jharkhand</span>
                 <h3 className="card-title">{event.title}</h3>
               </div>
@@ -122,7 +139,8 @@ export default async function Home() {
             testimonials.slice(0, 3).map((testimonial) => (
               <div key={testimonial.identifier} className="testimonial-card">
                 <p className="testimonial-text">"{testimonial.comment}"</p>
-                <h4 className="testimonial-author">- {testimonial.name}</h4>
+                {/* Changed from h4 to p to fix heading order accessibility issue */}
+                <p className="testimonial-author font-semibold">- {testimonial.name}</p>
                 <div style={{ color: '#FFD700', marginTop: '10px' }}>
                   {"★".repeat(testimonial.stars)}{"☆".repeat(5 - testimonial.stars)}
                 </div>
@@ -137,7 +155,8 @@ export default async function Home() {
             ].map((testimonial, i) => (
               <div key={i} className="testimonial-card">
                 <p className="testimonial-text">"{testimonial.text}"</p>
-                <h4 className="testimonial-author">- {testimonial.name}</h4>
+                {/* Changed from h4 to p to fix heading order accessibility issue */}
+                <p className="testimonial-author font-semibold">- {testimonial.name}</p>
               </div>
             ))
           )}

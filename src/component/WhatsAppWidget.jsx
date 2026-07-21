@@ -29,7 +29,7 @@ export default function WhatsAppWidget() {
   ];
 
   return (
-    <div className="wa-widget-container">
+    <div className="wa-widget-container" aria-label="Chat with us on WhatsApp">
       {/* The Chat Window */}
       {isOpen && (
         <div className="wa-chat-window">

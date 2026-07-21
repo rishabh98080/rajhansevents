@@ -45,12 +45,12 @@ function Navbar() {
     <nav className="navbar">
       <img src='/logo.png' width="100px" height="100px" alt="Logo" loading = 'eager' fetchPriority="high" />
       <Link href="/" fetchPriority="high">Home</Link>
-      <Link href="/about" fetchPriority="high">About Us</Link>
-      <Link href="/services" fetchPriority="high">Our Services</Link>
+      <Link href="/about" fetchPriority="low" prefetch={false}>About Us</Link>
+      <Link href="/services" fetchPriority="low" prefetch={false}>Our Services</Link>
       <Link href="/packages" fetchPriority="high">Packages</Link>
-      <Link href="/portfolio" fetchPriority="high">Portfolio</Link>
+      <Link href="/portfolio" fetchPriority="low" prefetch={false}>Portfolio</Link>
       <Link href="/contact" fetchPriority="high">Contact</Link>
-      <Link href="/testimonials" fetchPriority="high">Testimonials</Link>
+      <Link href="/testimonials" fetchPriority="low" prefetch={false}>Testimonials</Link>
 
       {/* Conditional rendering */}
       {isAdmin && <Link href="/Manage">Manage</Link>}

@@ -65,9 +65,15 @@ const Footer = () => {
             {contactData?.fb && <a href={contactData.fb} target="_blank" rel="noreferrer">f</a>}
             {contactData?.insta && <a href={contactData.insta} target="_blank" rel="noreferrer">in</a>}
             {/* Keep placeholders if you want them, or map them to future DB columns */}
-            <a href="#tw"><img src = "https://cdn-icons-png.flaticon.com/128/5968/5968958.png" width = {15}/></a>
-            <a href="#pi"><img src = "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/facebook-square-black-icon.png" width = {20}/></a>
-            <a href="#go"><img src = "https://cdn-icons-png.flaticon.com/128/1384/1384031.png" width = {20}/></a>
+            <a href="#tw" aria-label="Twitter">
+              <img src = "https://cdn-icons-png.flaticon.com/128/5968/5968958.png" width = {15} alt = "Twitter"/>
+            </a>
+            <a href="/facebook.com" aria-label="FaceBook">
+              <img src = "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/facebook-square-black-icon.png" width = {20} alt = "Facebook"/>
+            </a>
+            <a href="#go" aria-label="Instagram">
+              <img src = "https://cdn-icons-png.flaticon.com/128/1384/1384031.png" width = {20} alt = "Instagram"/>
+            </a>
           </div>
         </div>
 

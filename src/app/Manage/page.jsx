@@ -7,7 +7,7 @@ import styles from './Manage.module.css';
 import imageCompression from 'browser-image-compression';
 
 export default function ManagePage() {
-  const [loading, setLoading] = useState(false);
+const [loading, setLoading] = useState(false);
   
   // Section States
   const [homeData, setHomeData] = useState({ identifier: 'home_main', logo: null, banner_video: null, banner_title: '', banner_text: '', founded: '' });
@@ -23,22 +23,26 @@ export default function ManagePage() {
   const [experienceData, setExperienceData] = useState({ identifier: '', title: '', file: null });
   const [smileData, setSmileData] = useState({ identifier: '', file: null });
 
-  // Compression helper with 'isThumbnail' flag
+  // Compression helper tailored for WebP and dynamic sizing
   const compressImage = async (file, isThumbnail = false) => {
     if (!file || !file.type.startsWith('image/')) {
       return file;
     }
 
     const options = {
-      maxSizeMB: isThumbnail ? 0.1 : 1, // 100KB for thumbnails, 1MB for standard
+      maxSizeMB: isThumbnail ? 0.1 : 1.5, // 100KB for thumbs, 1.5MB for standards
       maxWidthOrHeight: isThumbnail ? 600 : 1920,
       useWebWorker: true,
+      fileType: 'image/webp', // Force conversion to WebP format
     };
 
     try {
       const compressedBlob = await imageCompression(file, options);
-      const fileName = isThumbnail ? `thumb_${file.name}` : file.name;
-      return new File([compressedBlob], fileName, { type: file.type, lastModified: Date.now() });
+      // Strip original extension and enforce .webp
+      const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+      const fileName = isThumbnail ? `thumb_${baseName}.webp` : `${baseName}.webp`;
+      
+      return new File([compressedBlob], fileName, { type: 'image/webp', lastModified: Date.now() });
     } catch (error) {
       console.error('Error compressing image:', error);
       return file;
@@ -56,9 +60,11 @@ export default function ManagePage() {
       const processFileUpload = async (fileInfo) => {
         if (!fileInfo || !fileInfo.file) return;
 
-        // Portfolio Logic: Keep Original for media_url, Compress for thumbnail_url
+        // Portfolio Logic: High-Res Original + Compressed Thumbnail
         if (table === 'portfolio' && fileInfo.file.type.startsWith('image/')) {
-          const originalFile = fileInfo.file; 
+          // Convert the original to a high-quality WebP for consistency
+          const originalFile = await compressImage(fileInfo.file, false); 
+          // Generate the tiny thumbnail WebP
           const thumbnailFile = await compressImage(fileInfo.file, true);
 
           const originalUrl = await uploadImage(originalFile, fileInfo.bucket);
@@ -67,14 +73,17 @@ export default function ManagePage() {
           finalPayload[fileInfo.columnName] = originalUrl;
           finalPayload['thumbnail_url'] = thumbnailUrl;
         } 
-        // Standard Logic: Compress all other images
+        // Standard Logic: Compress all other images and save as the only file
         else if (fileInfo.file.type.startsWith('image/')) {
-          const compressedFile = await compressImage(fileInfo.file, true);
+          const compressedFile = await compressImage(fileInfo.file, false);
           const fileUrl = await uploadImage(compressedFile, fileInfo.bucket);
           finalPayload[fileInfo.columnName] = fileUrl;
         } 
-        // Videos: Upload as is
-        else {
+        // Videos: Upload as is, but block massive files to prevent freezing
+        else if (fileInfo.file.type.startsWith('video/')) {
+          if (fileInfo.file.size > 50 * 1024 * 1024) { // 50MB limit
+             throw new Error("Video exceeds 50MB. Please compress it manually before uploading.");
+          }
           const fileUrl = await uploadImage(fileInfo.file, fileInfo.bucket);
           finalPayload[fileInfo.columnName] = fileUrl;
         }
