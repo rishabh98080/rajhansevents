@@ -19,7 +19,7 @@ export default function HeroSlider({ homeData }) {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 500); // Changes slide every 6 seconds
+    }, 3000); // Changes slide every 6 seconds
     
     return () => clearInterval(timer);
   }, [slides.length]);
