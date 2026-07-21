@@ -10,9 +10,9 @@ export default function HeroSlider({ homeData }) {
   // Define your slides here (mix of videos and images)
   const slides = [
     { type: 'video', src: homeData?.banner_video_url },
-    { type: 'image', src: '/Birthday.jpeg' },
-    { type: 'image', src: '/Birthday.jpeg' },
-    { type: 'image', src: '/Birthday.jpeg' }
+    { type: 'image', src: 'https://images.pexels.com/photos/534164/pexels-photo-534164.jpeg?auto=compress&w=600' },
+    { type: 'image', src: 'https://images.pexels.com/photos/534164/pexels-photo-534164.jpeg?auto=compress&w=600' },
+    { type: 'image', src: 'https://images.pexels.com/photos/534164/pexels-photo-534164.jpeg?auto=compress&w=600' }
   ];
 
   // Automatic slide effect
