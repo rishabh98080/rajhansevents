@@ -32,7 +32,7 @@ export default function HeroSlider({ homeData }) {
       {slides.map((slide, index) => (
         <div key={index} className={`hero-slide ${index === currentSlide ? 'active' : ''}`}>
           {slide.type === 'video' ? (
-            <video autoPlay loop muted playsInline crossOrigin="anonymous" className="hero-media">
+            <video autoPlay loop muted playsInline poster="/hero-placeholder.webp" crossOrigin="anonymous" className="hero-media">
               <source src={slide.src} type="video/mp4" />
             </video>
           ) : (
